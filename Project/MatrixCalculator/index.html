@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matrix Calculator</title>
+  <!-- link: icon -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css" />
+  <!-- font: popins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <!-- font: Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet" />
+  <!-- favicon -->
+  <link rel="icon" href="imges/favoriteIcon_1.png" type="image/x-icon" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: #333;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    input,
+    button {
+      cursor: pointer;
+    }
+
+    .wrap {
+      position: relative;
+      width: 99.8%;
+      height: 99vh;
+      background-color: #fff;
+    }
+
+    /* header */
+    .headerWrap {
+      width: 100%;
+      height: 380px;
+      background-color: #333;
+      border-radius: 0 0 80px 0;
+      text-align: center;
+    }
+
+    .mainTitle {
+      color: #fff;
+      font-size: 48px;
+      padding-top: 3rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-style: normal;
+    }
+
+    /* matrixBox */
+    .matrixBoxWrap {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      width: 1340px;
+      height: 70%;
+      /* border: 1px solid red; */
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    /* calcB */
+    .CalcMatrixBox {
+      display: flex;
+      width: 848px;
+      height: 637px;
+      background: #ddd;
+      border-radius: 20px 20px 85px 20px;
+      background: linear-gradient(135deg, #dfcae2, #eaccf2, #badbdb 80%);
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* frstMatrixBox */
+    .frstMatrixBox {
+      width: 864px;
+      height: 637px;
+      /* border: 1px solid red; */
+      border-radius: 20px 0px 0px 20px;
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 20px;
+    }
+
+    .ContMatrixWrap {
+      background-color: #ffffff6b;
+      width: 400px;
+      height: 600px;
+      border-radius: 10px;
+      text-align: center;
+      /* border: 1px solid orange; */
+    }
+
+    .subTitleBox {
+      /* border: 1px solid blue; */
+      width: 100%;
+      height: 8%;
+      text-align: center;
+      padding-top: 15px;
+    }
+
+    .subMatrixTitle {
+      font-size: 26px;
+      /* border: 1px solid blue; */
+    }
+
+    .rcAllInputBox {
+      width: 100%;
+      height: 10%;
+      padding: 14px;
+      /* border: 1px solid red; */
+    }
+
+    .inputMatrixB {
+      width: 100px;
+      height: 40px;
+      outline: 0;
+      text-align: center;
+      border: 1px solid #5f5f5f;
+      border-radius: 3px;
+      font-size: 16px;
+    }
+
+    .inputMatrixB:focus {
+      border-color: #333;
+      background-color: #f4f4f400;
+      outline: none;
+    }
+
+    .inputMatrixB::placeholder {
+      font-size: 13px;
+    }
+
+    .matrixBtnBox {
+      width: 100%;
+      height: 10%;
+      display: flex;
+      justify-content: space-evenly;
+      /* border: 1px solid orange; */
+    }
+
+    .resultBtnBox {
+      padding-top: 7px;
+    }
+
+    .btnMatrix {
+      width: 100px;
+      height: 40px;
+      border-radius: 3px;
+      margin-top: 7px;
+      background-color: #868686e5;
+      color: #fff;
+      border: 0;
+      outline: 0;
+      letter-spacing: 1px;
+      font-size: 15px;
+    }
+
+    .btnMatrix:active {
+      margin-top: 8px;
+      background: #676767e5;
+    }
+
+    /* result output */
+    .outputBtn {
+      width: 100px;
+      height: 40px;
+      background-color: #484848;
+      color: #ffffff;
+      border-radius: 3px;
+      border: 1px solid #333;
+      outline: 0;
+      letter-spacing: 1px;
+      font-size: 15px;
+    }
+
+    .outputBtn:active {
+      background-color: #585858e5;
+      border: 1px solid #585858e5;
+    }
+
+    .outIcon {
+      margin: 1px;
+    }
+
+    /* outPut */
+    .outPutWrapB {
+      background: #ffffff53;
+      width: 95%;
+      height: 67%;
+      margin: 0 auto;
+      border-radius: 5px;
+      margin-top: 13px;
+      /* border: 1px solid red; */
+      padding-top: 18px;
+      opacity: 0;
+    }
+
+    .outPutBox {
+      margin: 0 auto;
+      padding-top: 5px;
+    }
+
+    /* matrixCell */
+    .matrixCell {
+      width: 34px;
+      height: 34px;
+      margin: 2px;
+      outline: 0;
+      text-align: center;
+      border: 1px solid #8c8c8c;
+      border-radius: 3px;
+    }
+
+    .matrixCell:focus {
+      border: 0.11rem solid #606060;
+      outline: 0;
+      background-color: #a3e3de67;
+    }
+
+    /* boxB 오른쪽 하단 boder-radius추가 */
+    .boderAdd_Wrap {
+      border-radius: 10px 10px 70px 10px;
+    }
+
+    .boderAdd_outPut {
+      border-radius: 10px 10px 60px 10px;
+    }
+
+    /* resultB */
+    .resultMatrixBox {
+      width: 432px;
+      height: 637px;
+      border-radius: 20px 20px 85px 20px;
+      background-color: #badbdb;
+      box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+      margin-left: 45px;
+      text-align: center;
+    }
+
+    .resultAdd_Wrap {
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    .btnMatrix .icon {
+      color: #fff;
+    }
+
+    /* result > refresh 영역 */
+    .refreshWrap {
+      width: 90%;
+      height: 10%;
+      margin: 0 auto;
+      border-top: 0.12rem solid #686868;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3px;
+    }
+
+    .refreshCont {
+      position: relative;
+      width: 160px;
+      height: 30px;
+      /* border: 1px solid red; */
+    }
+
+    .refreshSubB,
+    .refreshActiveB {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      width: 90%;
+      left: 50%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      /* border: 1px solid red; */
+    }
+
+    .refreshTxt {
+      padding-left: 3px;
+      letter-spacing: 0.01rem;
+      font-size: 18px;
+      /* border: 1px solid green; */
+    }
+
+    .refreshActiveB {
+      opacity: 0;
+    }
+
+    /* active */
+    .refreshCont:hover .refreshActiveB {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .refreshCont:hover .refreshActiveB>.refreshTxt {
+      font-weight: 700;
+    }
+
+    .refreshCont:hover .refreshBeforeB {
+      opacity: 0;
+    }
+
+    /* btnResult */
+    .btnResult {
+      /* background-color: #a6d5d5; */
+      /* background-color: #92cfcf; */
+      background-color: #b5dbdb;
+    }
+
+    .btnResult:active {
+      background-color: #a6d5d5;
+    }
+
+    .resultIcon {
+      color: #333;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* 구글링 : inputBox 증가감소 화살표 제거 */
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* 새로고침 icon */
+    .matrixRefreshBtn {
+      color: #fff;
+      font-size: 17px;
+    }
+
+    /* popup */
+    .cOutPutWrapB {
+      position: relative;
+    }
+
+    .popupBtn {
+      position: absolute;
+      right: 1px;
+      top: 1px;
+      color: #fff;
+      background-color: #484848;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .popupBtn:active {
+      background: #8f9090;
+    }
+
+    /* 팝업 기본값 숨기기 */
+    .wrap {
+      position: relative;
+    }
+
+    .popupModalBackground {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: #47474746;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      display: none;
+    }
+
+    .popupWrap {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+      z-index: 30;
+      display: none;
+    }
+
+    .popupHeaderB {
+      position: relative;
+      /* border: 1px solid red; */
+      width: 100%;
+      height: 10%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+    }
+
+    .popupTitle {
+      font-size: 28px;
+    }
+
+    .popupTopCloseIcon {
+      position: absolute;
+      right: 3%;
+      top: 22%;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .popupMiddleB {
+      width: 100%;
+      height: 77%;
+      /* border: 1px solid orange; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popupMiddleB .popupValueB {
+      width: 90%;
+      height: 90%;
+      border-radius: 5px;
+      background-color: #9cc8c85b;
+    }
+
+    .popupInputBox {
+      text-align: center;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    .PopupCell {
+      width: 62px;
+      height: 45px;
+      margin: 2px;
+      font-size: 16px;
+    }
+
+    .PopupCell:focus {
+      background-color: #ddd;
+    }
+
+    .popupBottomB {
+      width: 100%;
+      height: 13%;
+      /* border: 1px solid green; */
+      text-align: center;
+    }
+
+    .popupBottomClosebtn {
+      left: 50px;
+      width: 160px;
+      height: 47px;
+      font-size: 22px;
+      letter-spacing: 1px;
+      background-color: #9cc8c8;
+      border: 0px;
+      outline: 0px;
+      border-radius: 3px;
+      color: #333;
+    }
+
+    .popupBottomClosebtn:hover {
+      background-color: #8fc3c3;
+    }
+
+    /* warningBox */
+    .warningBox {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translate(-50%);
+      background: #b5dbdb;
+      width: 600px;
+      height: 40px;
+      border-radius: 0 0 15px 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.6s;
+    }
+
+    .warningBtxt {
+      color: #333;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .warningIcon {
+      font-size: 22px;
+      font-weight: 600;
+      margin-right: 6px;
+      color: #087878;
+    }
+
+    /* sidebar */
+
+
+    .sideMainB {
+      position: absolute;
+      left: -200px;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.839);
+      transition: 0.8s;
+    }
+
+    .sideBarIcon {
+      position: absolute;
+      color: #fff;
+      right: -35px;
+      top: 5px;
+      font-size: 30px;
+      cursor: pointer;
+
+    }
+
+    .sideAfterIcon {
+      display: none;
+    }
+
+    .sideUl {
+      width: 100%;
+      text-align: center;
+      padding-top: 10px;
+      margin: 0 auto;
+      /* border: 1px solid red; */
+    }
+
+    .sideUl>li>a {
+      width: 75%;
+      padding: 10px 0;
+      display: inline-block;
+      color: #fff;
+      text-decoration: none;
+      border: 1px solid #fff;
+      margin: 7px 0;
+      border-radius: 2px;
+    }
+
+    .sideUl>li>a:hover {
+      background: rgba(104, 104, 104, 0.914);
+    }
+
+    .sideUl>li>a:active {
+      background: rgba(104, 104, 104, 0.914);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrapBox" class="wrap">
+    <section class="headerWrap">
+      <h1 class="mainTitle">Matrix Calculator</h1>
+    </section>
+    <!-- Popup_Modal -->
+    <div id="popupModalBg" class="popupModalBackground">
+      <div id="popupContent" class="popupWrap">
+        <article class="popupHeaderB">
+          <h2 id="popupTitle" class="popupTitle">Calculator View</h2>
+          <i id="popupTopClosebtn" class="xi-close popupTopCloseIcon"></i>
+        </article>
+        <section class="popupMiddleB">
+          <article class="popupValueB">
+            <article id="popupInputBox" class="popupInputBox">
+              <!-- cell -->
+            </article>
+          </article>
+        </section>
+        <article class="popupBottomB">
+          <button id="popupBottomClosebtn" class="popupBottomClosebtn">
+            Close
+          </button>
+        </article>
+      </div>
+    </div>
+    <!-- Warning -->
+    <section id="rWarningBox" class="warningBox">
+      <i class="xi-info-o warningIcon" id="warningIcon"></i>
+      <h2 class="warningBtxt" id="warningBtxt">
+        A의 열과 B의 행이 동일해야 계산이 가능합니다.
+      </h2>
+    </section>
+    <!-- MatrixBoxWrap -->
+    <section class="matrixBoxWrap">
+      <section class="CalcMatrixBox">
+        <!-- frstMatrixBox -->
+        <article class="frstMatrixBox">
+          <!-- A_Content -->
+          <section class="ContMatrixWrap">
+            <article class="subTitleBox">
+              <h2 class="subMatrixTitle">Matrix A</h2>
+            </article>
+            <article class="rcAllInputBox">
+              <input id="aMatrixY" class="inputMatrixB" type="number" value="9" min="0" max="9" autofocus
+                placeholder="1~9 입력" />
+              <i class="xi-close-min outIcon"></i>
+              <input id="aMatrixX" class="inputMatrixB" type="number" value="9" min="0" max="9" placeholder="1~9 입력" />
+              <i class="xi-drag-handle"></i>
+              <button id="aOutMatrixBtn" class="outputBtn outIcon">
+                OUTPUT
+              </button>
+            </article>
+            <article class="matrixBtnBox">
+              <!-- <button id="aOutMatrixBtn" class="btnMatrix">OUTPUT</button> -->
+              <button id="aRandomMatrixBtn" class="btnMatrix">RANDOM</button>
+              <button id="aResetMatrixBtn" class="btnMatrix">RESET</button>
+              <button id="aClearMatrixBtn" class="btnMatrix">
+                <i class="xi-refresh matrixRefreshBtn"></i>
+              </button>
+            </article>
+            <section id="aOutPutWrapB" class="outPutWrapB">
+              <article id="aAreaMatrix" class="outPutBox">
+                <!-- matrixCell -->
+              </article>
+            </section>
+          </section>
+          <!--B_Content -->
+          <section class="ContMatrixWrap boderAdd_Wrap">
+            <article class="subTitleBox">
+              <h2 class="subMatrixTitle">Matrix B</h2>
+            </article>
+            <article class="rcAllInputBox">
+              <input id="bMatrixY" class="inputMatrixB" type="number" value="9" min="0" max="9" placeholder="1~9 입력" />
+              <i class="xi-close-min outIcon"></i>
+              <input id="bMatrixX" class="inputMatrixB" type="number" value="9" min="0" max="9" placeholder="1~9 입력" />
+              <i class="xi-drag-handle"></i>
+              <button id="bOutMatrixBtn" class="outputBtn outIcon">
+                OUTPUT
+              </button>
+            </article>
+            <article class="matrixBtnBox">
+              <!-- <button id="aOutMatrixBtn" class="btnMatrix">OUTPUT</button> -->
+              <button id="bRandomMatrixBtn" class="btnMatrix">RANDOM</button>
+              <button id="bResetMatrixBtn" class="btnMatrix">RESET</button>
+              <button id="bClearMatrixBtn" class="btnMatrix">
+                <i class="xi-refresh matrixRefreshBtn"></i>
+              </button>
+            </article>
+            <section id="bOutPutWrapB" class="outPutWrapB boderAdd_outPut">
+              <article id="bAreaMatrix" class="outPutBox">
+                <!-- matrixCell -->
+              </article>
+            </section>
+          </section>
+        </article>
+      </section>
+      <!-- Result_Content -->
+      <article class="resultMatrixBox">
+        <section class="ContMatrixWrap boderAdd_Wrap resultAdd_Wrap">
+          <article class="subTitleBox">
+            <h2 class="subMatrixTitle">Calculator</h2>
+          </article>
+          <article class="matrixBtnBox resultBtnBox">
+            <button id="plusCalcBtn" class="btnMatrix btnResult">
+              <i class="resultIcon xi-plus"></i>
+            </button>
+            <button id="minusCalcBtn" class="btnMatrix btnResult">
+              <i class="resultIcon xi-minus"></i>
+            </button>
+            <button id="multiplyCalcBtn" class="btnMatrix btnResult">
+              <i class="resultIcon xi-close"></i>
+            </button>
+          </article>
+
+          <section class="refreshWrap">
+            <article class="refreshCont">
+              <article id="refreshBeforeB" class="refreshSubB refreshBeforeB">
+                <!-- <i class="refreshtIcon xi-catched xi-2x"></i> -->
+                <i class="refreshtIcon xi-refresh xi-2x"></i>
+                <span class="refreshTxt">Full Refresh</span>
+              </article>
+              <article id="refreshActiveB" class="refreshSubB refreshActiveB">
+                <!-- <i class="refreshtIcon refreshIconActive xi-catched xi-2x xi-spin"></i> -->
+                <i class="refreshtIcon refreshIconActive xi-refresh xi-2x xi-spin"></i>
+
+                <span class="refreshTxt">Full Refresh</span>
+              </article>
+            </article>
+          </section>
+
+          <section id="cOutPutWrapB" class="outPutWrapB boderAdd_outPut cOutPutWrapB">
+            <i id="popupOpenBtn" class="xi-expand popupBtn"></i>
+            <!--팝업오픈 아이콘-->
+            <article id="cOutPutBox" class="outPutBox boderAdd_outPut">
+              <!-- matrixCell -->
+            </article>
+          </section>
+        </section>
+      </article>
+    </section>
+    <!-- MenuBar -->
+    <section id="sideMainB" class="sideMainB">
+      <i id="sideBeforeIcon" class="xi-align-justify sideBarIcon sideBeforeIcon"></i>
+      <i id="sideAfterIcon" class="xi-hamburger-back sideBarIcon sideAfterIcon"></i>
+      <ul class="sideUl">
+        <li><a href="https://fanatical-music-91c.notion.site/Matrix-Calculator-23b233ab5ab849b4b6cf4d7f1d0e68ff"
+            target="_blank">Progress Plan</a>
+        </li>
+        <li><a href="#">Code View</a></li>
+        <li><a href="#">Post Review</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- script -->
+  <script>
+    // Matrix A_box
+    const frstMatrixR = {
+      aMatrixX: '',
+      aMatrixY: '',
+      aOutMatrixBtn: '',
+      aRandomMatrixBtn: '',
+      aResetMatrixBtn: '',
+      aClearMatrixBtn: '',
+      aOutPutWrapB: '',
+      aAreaMatrix: '',
+      warningBtxt: '',
+      rWarningBox: '',
+      warningIcon: '',
+      aMatrixVArr: [],
+      akeyName: function (item) {
+        for (let keyName in item) {
+          if (document.getElementById(keyName)) {
+            item[keyName] = document.getElementById(keyName);
+          }
+        }
+      },
+      aMatrixWork: function () {
+        this.aOutMatrixBtn.addEventListener('click', () => {
+          // 화살표 함수 사용으로 상위 컨텍스트인 aMatrixWork 메서드의 this를 참조
+          let yV = Number(this.aMatrixY.value);
+          let xV = Number(this.aMatrixX.value);
+          this.aAreaMatrix.innerHTML = '';
+          this.aAreaMatrix.style.width = 38 * xV + 'px';
+          this.aMatrixVArr = [];
+          for (let y = 0; y < yV; y++) {
+            this.aMatrixVArr.push([]);
+            for (let x = 0; x < xV; x++) {
+              let aCellNum = String(y) + String(x);
+              let input =
+                '<input id="aCell' +
+                y +
+                x +
+                '" class="matrixCell" type="number" value="0" min="-99" max="99">';
+              this.aMatrixVArr[y].push(0);
+              this.aAreaMatrix.innerHTML += input;
+            }
+          }
+          // DOM에 값이 있을때만 배경보이게
+          if (this.aAreaMatrix.innerHTML != '') {
+            this.aOutPutWrapB.style.opacity = 1;
+          } else {
+            this.aOutPutWrapB.style.opacity = 0;
+          }
+
+          if (this.aMatrixX.value * this.aMatrixY.value == 0) {
+            this.rWarningBox.style.backgroundColor = '#b5dbdb';
+            this.warningBtxt.innerText =
+              'Matrix A의 행과 열을 모두 입력해주세요.';
+            this.warningIcon.style.color = '#087878';
+            setTimeout(function () {
+              this.rWarningBox.style.top = 0 + 'px';
+              setTimeout(function () {
+                calcMatrixR.rWarningBox.style.top = -40 + 'px';
+              }, 2600);
+            }, 200);
+          }
+        });
+      },
+      aMatrixData: function () {
+        this.aAreaMatrix.addEventListener('change', function (event) {
+          // 배열값 연동 시키기
+          let value = Number(event.target.value);
+          let idLen = (event.target.id.length);
+          let xIdx = event.target.id[idLen - 1];
+          let yIdx = event.target.id[idLen - 2];
+          frstMatrixR.aMatrixVArr[yIdx][xIdx] = value;
+        });
+      },
+      aMatrixRandomCreate: function () {
+        // random_btn
+        this.aRandomMatrixBtn.addEventListener('click', function (event) {
+          let yV = Number(frstMatrixR.aMatrixY.value);
+          let xV = Number(frstMatrixR.aMatrixX.value);
+          for (let y = 0; y < yV; y++) {
+            for (let x = 0; x < xV; x++) {
+              let randomNum = Math.floor(Math.random() * 100);
+              let matrixCell = String('aCell' + y + x);
+              frstMatrixR.aMatrixVArr[y][x] = randomNum; // 배열에 담기
+              document.getElementById(matrixCell).value = randomNum; // 화면에출력
+            }
+          }
+        });
+      },
+      aMatrixResetFunc: function () {
+        //reset_btn
+        this.aResetMatrixBtn.addEventListener('click', function (event) {
+          let yV = Number(frstMatrixR.aMatrixY.value);
+          let xV = Number(frstMatrixR.aMatrixX.value);
+          for (let y = 0; y < yV; y++) {
+            for (let x = 0; x < xV; x++) {
+              let matrixCell = String('aCell' + y + x);
+              frstMatrixR.aMatrixVArr[y][x] = 0;
+              document.getElementById(matrixCell).value = 0;
+            }
+          }
+        });
+      },
+      aMatrixClearFunc: function () {
+        //refresh_btn
+        this.aClearMatrixBtn.addEventListener('click', (event) => {
+          this.aMatrixY.value = 0;
+          this.aMatrixX.value = 0;
+          this.aMatrixVArr = [];
+          this.aAreaMatrix.innerHTML = '';
+          this.aOutPutWrapB.style.opacity = 0;
+        });
+      },
+      aMatrixXLimit: function () {
+        this.aMatrixX.addEventListener('input', function (event) {
+          let value = event.target.value;
+          if (value <= 0) {
+            event.target.value = '';
+          }
+          if (value >= 9) {
+            event.target.value = value.slice(0, 1);
+          }
+        });
+      },
+      aMatrixYLimit: function () {
+        this.aMatrixY.addEventListener('input', function (event) {
+          let value = event.target.value;
+          if (value <= 0) {
+            event.target.value = '';
+          }
+          if (value >= 9) {
+            event.target.value = value.slice(0, 1);
+          }
+        });
+      },
+      aSubBoxValueLimit: function () {
+        this.aOutPutWrapB.addEventListener('input', function (event) {
+          let value = event.target.value;
+          if (value < -99) {
+            event.target.value = -99;
+          }
+          if (value > 99) {
+            event.target.value = 99;
+          }
+        });
+      },
+    }; //A_end
+
+    frstMatrixR.akeyName(frstMatrixR); // DOM ID
+    frstMatrixR.aMatrixData();
+    frstMatrixR.aMatrixWork();
+    frstMatrixR.aMatrixRandomCreate();
+    frstMatrixR.aMatrixResetFunc();
+    frstMatrixR.aMatrixClearFunc();
+    frstMatrixR.aMatrixXLimit(); // x입력제한
+    frstMatrixR.aMatrixYLimit(); // y입력제한
+    frstMatrixR.aSubBoxValueLimit(); //a subBox 입력제한
+
+    // Matrix B_box
+    const scndtMatrixR = {
+      bMatrixX: '',
+      bMatrixY: '',
+      bOutMatrixBtn: '',
+      bRandomMatrixBtn: '',
+      bResetMatrixBtn: '',
+      bClearMatrixBtn: '',
+      bOutPutWrapB: '',
+      bAreaMatrix: '',
+      rWarningBox: '',
+      warningBtxt: '',
+      warningIcon: '',
+      bMatrixVArr: [],
+      bkeyName: function (item) {
+        for (let keyName in item) {
+          if (document.getElementById(keyName)) {
+            item[keyName] = document.getElementById(keyName);
+          }
+        }
+      },
+      bMatrixWork: function () {
+        this.bOutMatrixBtn.addEventListener('click', () => {
+          // 화살표 함수 사용으로 상위 컨텍스트인 aMatrixWork 메서드의 this를 참조
+          let yV = Number(this.bMatrixY.value);
+          let xV = Number(this.bMatrixX.value);
+          this.bOutPutWrapB.style.opacity = 1;
+          this.bAreaMatrix.innerHTML = '';
+          this.bAreaMatrix.style.width = 38 * xV + 'px';
+          this.bMatrixVArr = [];
+          for (let y = 0; y < yV; y++) {
+            this.bMatrixVArr.push([]);
+            for (let x = 0; x < xV; x++) {
+              let bCellNum = String(y) + String(x);
+              let input =
+                '<input id="bCell' +
+                y +
+                x +
+                '" class="matrixCell" type="number" value="0" min="-99" max="99">';
+              this.bMatrixVArr[y].push(0);
+              this.bAreaMatrix.innerHTML += input;
+            }
+          }
+          // DOM에 값이 있을때만 배경보이게
+          if (this.bAreaMatrix.innerHTML != '') {
+            this.bOutPutWrapB.style.opacity = 1;
+          } else {
+            this.bOutPutWrapB.style.opacity = 0;
+          }
+          if (this.bMatrixX.value * this.bMatrixY.value == 0) {
+            this.rWarningBox.style.backgroundColor = '#b5dbdb';
+            this.warningIcon.style.color = '#087878';
+            this.warningBtxt.innerText =
+              'Matrix B의 행과 열을 모두 입력해주세요.';
+            setTimeout(function () {
+              this.rWarningBox.style.top = 0 + 'px';
+              setTimeout(function () {
+                this.rWarningBox.style.top = -40 + 'px';
+              }, 2600);
+            }, 200);
+          }
+        });
+      },
+      bMatrixData: function () {
+        this.bAreaMatrix.addEventListener('change', function (event) {
+          // 배열값 연동 시키기
+          let value = Number(event.target.value);
+          let idLen = (event.target.id.length);
+          let xIdx = event.target.id[idLen - 1];
+          let yIdx = event.target.id[idLen - 2];
+          scndtMatrixR.bMatrixVArr[yIdx][xIdx] = value;
+        });
+      },
+      bMatrixRandomCreate: function () {
+        // random_btn
+        this.bRandomMatrixBtn.addEventListener('click', function (event) {
+          let yV = Number(scndtMatrixR.bMatrixY.value);
+          let xV = Number(scndtMatrixR.bMatrixX.value);
+          for (let y = 0; y < yV; y++) {
+            for (let x = 0; x < xV; x++) {
+              let randomNum = Math.floor(Math.random() * 100);
+              let matrixCell = String('bCell' + y + x);
+              scndtMatrixR.bMatrixVArr[y][x] = randomNum; // 배열에 담기
+              document.getElementById(matrixCell).value = randomNum; // 화면에출력
+            }
+          }
+        });
+      },
+      bMatrixResetFunc: function () {
+        //reset_btn
+        this.bResetMatrixBtn.addEventListener('click', function (event) {
+          let yV = Number(scndtMatrixR.bMatrixY.value);
+          let xV = Number(scndtMatrixR.bMatrixX.value);
+          for (let y = 0; y < yV; y++) {
+            for (let x = 0; x < xV; x++) {
+              let matrixCell = String('bCell' + y + x);
+              scndtMatrixR.bMatrixVArr[y][x] = 0;
+              document.getElementById(matrixCell).value = 0;
+            }
+          }
+        });
+      },
+      bMatrixClearFunc: function () {
+        //refresh_btn
+        this.bClearMatrixBtn.addEventListener('click', (event) => {
+          this.bMatrixY.value = 0;
+          this.bMatrixX.value = 0;
+          this.bMatrixVArr = [];
+          this.bAreaMatrix.innerHTML = '';
+          this.bOutPutWrapB.style.opacity = 0;
+        });
+      },
+      bMatrixXLimit: function () {
+        this.bMatrixX.addEventListener('input', function (event) {
+          let value = event.target.value;
+          if (value <= 0) {
+            event.target.value = '';
+          }
+          if (value >= 9) {
+            event.target.value = value.slice(0, 1);
+          }
+        });
+      },
+      bMatrixYLimit: function () {
+        this.bMatrixY.addEventListener('input', function (event) {
+          let value = event.target.value;
+          if (value <= 0) {
+            event.target.value = '';
+          }
+          if (value >= 9) {
+            event.target.value = value.slice(0, 1);
+          }
+        });
+      },
+      bSubBoxValueLimit: function () {
+        this.bOutPutWrapB.addEventListener('input', function (event) {
+          let value = event.target.value;
+          if (value < -99) {
+            event.target.value = -99;
+          }
+          if (value > 99) {
+            event.target.value = 99;
+          }
+        });
+      },
+    }; //B_end
+
+    scndtMatrixR.bkeyName(scndtMatrixR); // DOM ID
+    scndtMatrixR.bMatrixData();
+    scndtMatrixR.bMatrixWork();
+    scndtMatrixR.bMatrixRandomCreate();
+    scndtMatrixR.bMatrixResetFunc();
+    scndtMatrixR.bMatrixClearFunc();
+    scndtMatrixR.bMatrixXLimit(); // b X입력제한
+    scndtMatrixR.bMatrixYLimit(); // b Y입력제한
+    scndtMatrixR.bSubBoxValueLimit(); // b subbox 입력제한
+
+    // Calculator Box
+    const calcMatrixR = {
+      plusCalcBtn: '',
+      minusCalcBtn: '',
+      multiplyCalcBtn: '',
+      popupOpenBtn: '',
+      popupContent: '',
+      popupInputBox: '',
+      popupTitle: '',
+      popupTopClosebtn: '',
+      popupBottomClosebtn: '',
+      popupModalBg: '',
+      refreshBeforeB: '',
+      cOutPutWrapB: '',
+      cOutPutBox: '',
+      refreshActiveB: '',
+      rWarningBox: '',
+      warningBtxt: '',
+      warningIcon: '',
+      rPopupEvent: [],
+      rMatrixVArr: [],
+      ckeyName: function (item) {
+        for (let keyName in item) {
+          if (document.getElementById(keyName)) {
+            item[keyName] = document.getElementById(keyName);
+          }
+        }
+      },
+      plusBtnFunc: function () {
+        this.plusCalcBtn.addEventListener('click', (event) => {
+          calcMatrixR.rPopupEvent = [];
+          calcMatrixR.rPopupEvent.push('Matrix Summation View');
+          const AyV = Number(frstMatrixR.aMatrixY.value);
+          const AxV = Number(frstMatrixR.aMatrixX.value);
+          const ByV = Number(scndtMatrixR.bMatrixY.value);
+          const BxV = Number(scndtMatrixR.bMatrixX.value);
+          const fsArr = frstMatrixR.aMatrixVArr.length;
+          const scArr = scndtMatrixR.bMatrixVArr.length;
+          const RV = fsArr + scArr != 0;
+
+          if (AyV == ByV && AxV == BxV && RV && fsArr != 0 && scArr != 0) {
+            this.cOutPutBox.innerHTML = null;
+            this.cOutPutWrapB.style.opacity = 1;
+            this.cOutPutBox.style.width = 38 * AxV + 'px';
+            this.rMatrixVArr = []; // 배열초기화
+            for (let y = 0; y < AyV; y++) {
+              this.rMatrixVArr.push([]);
+              for (let x = 0; x < AxV; x++) {
+                this.rMatrixVArr[y].push(0);
+              }
+            }
+
+            for (let y = 0; y < AyV; y++) {
+              for (let x = 0; x < AxV; x++) {
+                const frstV = Number(frstMatrixR.aMatrixVArr[y][x]);
+                const scndV = Number(scndtMatrixR.bMatrixVArr[y][x]);
+                this.rMatrixVArr[y][x] = frstV + scndV;
+              }
+            }
+
+            for (let y = 0; y < AyV; y++) {
+              for (let x = 0; x < AxV; x++) {
+                let rCellNum = String(y) + String(x);
+                let cellValue = Number(
+                  calcMatrixR.rMatrixVArr[y][x]
+                ).toLocaleString('ko-KR');
+                let input = `<input id="rCell${rCellNum}" class="matrixCell" type="text" value="${cellValue}" readonly>`;
+                calcMatrixR.cOutPutBox.innerHTML += input;
+              }
+            }
+
+            if (this.cOutPutBox.innerHTML != '') {
+              this.cOutPutWrapB.style.opacity = 1;
+            } else {
+              this.cOutPutWrapB.style.opacity = 0;
+            }
+          } else if (RV && (fsArr == 0 || scArr == 0 || AxV != BxV || AyV != ByV)) {
+            this.cOutPutBox.innerHTML = null; // DOM초기화
+            this.cOutPutWrapB.style.opacity = 0;
+            this.rWarningBox.style.backgroundColor = '#ECD2F3';
+            this.warningIcon.style.color = '#8e1d94';
+            this.warningBtxt.innerHTML =
+              'Matrix A와 B의 행렬이 동일해야 계산이 가능합니다.';
+            setTimeout(function () {
+              this.rWarningBox.style.top = 0 + 'px';
+              setTimeout(function () {
+                this.rWarningBox.style.top = -40 + 'px';
+              }, 2600);
+            }, 200);
+          }
+        });
+      },
+      minusBtnFunc: function () {
+        this.minusCalcBtn.addEventListener('click', (event) => {
+          calcMatrixR.rPopupEvent = [];
+          calcMatrixR.rPopupEvent.push('Matrix Subtraction View');
+          const AyV = Number(frstMatrixR.aMatrixY.value);
+          const AxV = Number(frstMatrixR.aMatrixX.value);
+          const ByV = Number(scndtMatrixR.bMatrixY.value);
+          const BxV = Number(scndtMatrixR.bMatrixX.value);
+          const fsArr = frstMatrixR.aMatrixVArr.length;
+          const scArr = scndtMatrixR.bMatrixVArr.length;
+          const RV = fsArr + scArr != 0;
+
+          this.cOutPutBox.style.width = 38 * AxV + 'px';
+          this.cOutPutBox.innerHTML = null; // DOM초기화
+          this.rMatrixVArr = []; // 배열초기화
+          if (AyV == ByV && AxV == BxV && RV && fsArr != 0 && scArr != 0) {
+            for (let y = 0; y < AyV; y++) {
+              this.rMatrixVArr.push([]);
+              for (let x = 0; x < AxV; x++) {
+                this.rMatrixVArr[y].push(0);
+              }
+            }
+
+            for (let y = 0; y < AyV; y++) {
+              for (let x = 0; x < AxV; x++) {
+                const frstV = Number(frstMatrixR.aMatrixVArr[y][x]);
+                const scndV = Number(scndtMatrixR.bMatrixVArr[y][x]);
+                this.rMatrixVArr[y][x] = frstV - scndV;
+              }
+            }
+
+            for (let y = 0; y < AyV; y++) {
+              for (let x = 0; x < AxV; x++) {
+                let rCellNum = String(y) + String(x);
+                let cellValue = Number(
+                  calcMatrixR.rMatrixVArr[y][x]
+                ).toLocaleString('ko-KR');
+                let input = `<input id="rCell${rCellNum}" class="matrixCell" type="text" value="${cellValue}" readonly>`;
+                calcMatrixR.cOutPutBox.innerHTML += input;
+              }
+            }
+            //  cOutPutBox opacity
+            if (this.cOutPutBox.innerHTML != '') {
+              this.cOutPutWrapB.style.opacity = 1;
+            } else {
+              this.cOutPutWrapB.style.opacity = 0;
+            }
+          } else if (RV && (fsArr == 0 || scArr == 0 || AxV != BxV || AyV != ByV)) {
+            this.cOutPutBox.innerHTML = null; // DOM초기화
+            this.cOutPutWrapB.style.opacity = 0;
+            this.rWarningBox.style.backgroundColor = '#ECD2F3';
+            this.warningIcon.style.color = '#8e1d94';
+            this.warningBtxt.innerHTML =
+              'Matrix A와 B의이 행렬이 동일해야 계산이 가능합니다.';
+            setTimeout(function () {
+              this.rWarningBox.style.top = 0 + 'px';
+              setTimeout(function () {
+                this.rWarningBox.style.top = -40 + 'px';
+              }, 2600);
+            }, 200);
+          }
+        });
+      },
+      multiplyBtnFunc: function () {
+        this.multiplyCalcBtn.addEventListener('click', (event) => {
+          calcMatrixR.rPopupEvent = [];
+          calcMatrixR.rPopupEvent.push('Matrix Multiplication View');
+          const AyV = Number(frstMatrixR.aMatrixY.value);
+          const AxV = Number(frstMatrixR.aMatrixX.value);
+          const ByV = Number(scndtMatrixR.bMatrixY.value); //AxV==ByV 일때만 실행하므로 for문 조건엔 필요없음
+          const BxV = Number(scndtMatrixR.bMatrixX.value);
+
+          const fsArr = frstMatrixR.aMatrixVArr.length;
+          const scArr = scndtMatrixR.bMatrixVArr.length;
+          const RV = fsArr + scArr != 0;
+
+          // 출력조건
+          if (AxV == ByV && RV && fsArr != 0 && scArr != 0) { // a의 열과 b의 행이 같으면서, 두배열이 공값이 아닐때 출력
+            this.cOutPutWrapB.style.opacity = 1;
+            this.cOutPutBox.style.width = 38 * BxV + 'px';
+            this.cOutPutBox.innerHTML = null; // DOM초기화
+            this.rMatrixVArr = []; // 배열초기화
+
+            for (let i = 0; i < AyV; i++) {
+              calcMatrixR.rMatrixVArr.push([]);
+              for (let j = 0; j < BxV; j++) {
+                calcMatrixR.rMatrixVArr[i].push(0);
+              }
+            }
+
+            for (let i = 0; i < AyV; i++) {
+              let calcV = 0;
+              for (let j = 0; j < BxV; j++) {
+                for (let k = 0; k < AxV; k++) {
+                  let frstV = Number(frstMatrixR.aMatrixVArr[i][k]);
+                  let scndV = Number(scndtMatrixR.bMatrixVArr[k][j]);
+                  calcV += frstV * scndV;
+                }
+                // calcMatrixR.rMatrixVArr[i][j] = calcV;
+                // calcV = 0;
+                calcMatrixR.rMatrixVArr[i][j] = calcV;
+                calcV = 0;
+              }
+            }
+
+            for (let y = 0; y < AyV; y++) {
+              for (let x = 0; x < BxV; x++) {
+                let rCellNum = String(y) + String(x);
+                let cellValue = Number(
+                  calcMatrixR.rMatrixVArr[y][x]
+                ).toLocaleString('ko-KR');
+                let input = `<input id="rCell${rCellNum}" class="matrixCell" type="text" value="${cellValue}" readonly>`;
+                calcMatrixR.cOutPutBox.innerHTML += input;
+              }
+            }
+
+            // cOutPutWrapB
+            if (this.cOutPutBox.innerHTML != '') {
+              this.cOutPutWrapB.style.opacity = 1;
+            } else {
+              this.cOutPutWrapB.style.opacity = 0;
+            }
+          } else if (RV && (fsArr == 0 || scArr == 0 || AxV != ByV)) { // 두배열이 공값이 아니면서 , (A 혹은 B의 배열이 0이거 or  a의 열과 b의 행이 다를때 )
+            this.cOutPutBox.innerHTML = null; // DOM초기화
+            this.cOutPutWrapB.style.opacity = 0;
+            this.rWarningBox.style.backgroundColor = '#ECD2F3';
+            this.warningIcon.style.color = '#8e1d94';
+            this.warningBtxt.innerHTML = 'Matrix A의 열과 B의 행이 동일해야 계산이 가능합니다.';
+            setTimeout(function () {
+              this.rWarningBox.style.top = 0 + 'px';
+              // this.warningBtxt.innerHTML = 'A의 열과 B의 행이 동일해야 계산이 가능합니다.';
+              setTimeout(function () {
+                this.rWarningBox.style.top = -40 + 'px';
+              }, 2600);
+            }, 200);
+
+          } //if
+        });
+      },
+      fullRefreshFunc: function () {
+        this.refreshActiveB.addEventListener('click', function (event) {
+          frstMatrixR.aMatrixY.value = 0;
+          frstMatrixR.aMatrixX.value = 0;
+          frstMatrixR.aMatrixVArr = null;
+          frstMatrixR.aAreaMatrix.innerHTML = null;
+          frstMatrixR.aOutPutWrapB.style.opacity = 0;
+
+          scndtMatrixR.bMatrixY.value = 0;
+          scndtMatrixR.bMatrixX.value = 0;
+          scndtMatrixR.bMatrixVArr = null;
+          scndtMatrixR.bAreaMatrix.innerHTML = null;
+          scndtMatrixR.bOutPutWrapB.style.opacity = 0;
+
+          calcMatrixR.rMatrixVArr = null;
+          calcMatrixR.cOutPutBox.innerHTML = null;
+          calcMatrixR.cOutPutWrapB.style.opacity = 0;
+        });
+      },
+      popupTopCloseFunc: function () {
+        this.popupTopClosebtn.addEventListener('click', (event) => {
+          this.popupContent.style.display = 'none';
+          this.popupModalBg.style.display = 'none';
+        });
+      },
+      popupOpenFunc: function () {
+        this.popupOpenBtn.addEventListener('click', (event) => {
+          const AyV = this.rMatrixVArr.length;
+          const BxV = this.rMatrixVArr[0].length;
+          this.popupInputBox.innerHTML = '';
+          this.popupInputBox.style.width = 66 * BxV + 'px';
+          this.popupModalBg.style.display = 'block';
+          this.popupTitle.innerText = this.rPopupEvent[0];
+          this.popupContent.style.display = 'block';
+          for (let y = 0; y < AyV; y++) {
+            for (let x = 0; x < BxV; x++) {
+              let pCellNum = String(y) + String(x);
+              let cellValue = Number(
+                calcMatrixR.rMatrixVArr[y][x]
+              ).toLocaleString('ko-KR');
+              let input = `<input id="pCell${pCellNum}" class="PopupCell matrixCell" type="text" value="${cellValue}" readonly>`;
+              calcMatrixR.popupInputBox.innerHTML += input;
+            }
+          }
+        });
+      },
+      popupBottomCloseFunc: function () {
+        this.popupBottomClosebtn.addEventListener('click', (event) => {
+          this.popupContent.style.display = 'none';
+          this.popupModalBg.style.display = 'none';
+        });
+      },
+    }; //C_end
+
+    calcMatrixR.ckeyName(calcMatrixR); // DOM ID
+    calcMatrixR.plusBtnFunc(); // +
+    calcMatrixR.minusBtnFunc(); // -
+    calcMatrixR.multiplyBtnFunc(); // *
+    calcMatrixR.popupOpenFunc(); // Popup-Open
+    calcMatrixR.fullRefreshFunc(); // ABC_fullRefresh
+    calcMatrixR.popupTopCloseFunc(); // Popup-Close (TOP)
+    calcMatrixR.popupBottomCloseFunc(); // Popup-Close (BOTTOM)
+
+    const sideBar = {
+      sideMainB: '',
+      sideBeforeIcon: '',
+      sideAfterIcon: '',
+      wrapBox: '',
+      skeyName: function (item) {
+        for (let keyName in item) {
+          if (document.getElementById(keyName)) {
+            item[keyName] = document.getElementById(keyName);
+          }
+        }
+      },
+      sideBarOutFunc: function () {
+        sideBar.sideBeforeIcon.addEventListener('click', (event) => {
+          sideBar.sideMainB.style.left = 0;
+          this.sideBeforeIcon.style.display = 'none';
+          this.sideAfterIcon.style.display = 'block';
+        })
+      },
+      sideBarInFunc: function () {
+        this.sideAfterIcon.addEventListener('click', (event) => {
+          this.sideMainB.style.left = -200 + 'px';
+          this.sideBeforeIcon.style.display = 'block';
+          this.sideAfterIcon.style.display = 'none';
+        })
+      }
+    }// Side_End 
+
+    sideBar.skeyName(sideBar);
+    sideBar.sideBarOutFunc();
+    sideBar.sideBarInFunc();
+
+
+
+
+  </script>
+</body>
+
+</html>
