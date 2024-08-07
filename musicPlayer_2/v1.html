@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- icon -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <!-- font:Lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- font: Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- font:Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <title>Document</title>
+  <style>
+    /* setting */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: #fff;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    /* 모든 icon 적용 */
+    i{
+      cursor: pointer; 
+    }
+    /* start */
+    .wrap {
+      width: 430px;
+      height: 932px;
+      margin: 0 auto;
+      background-image: linear-gradient(rgba(24, 24, 24, 0.8),
+          rgba(24, 24, 24, 0.8)), url("imges/outoftime_1.webp");
+      padding: 20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 0;
+    }
+
+    /* headerCont */
+    .headerCont {
+      width: 100%;
+      height: 20%;
+      /* border: 1px solid green; */
+      margin-top: 50px;
+    }
+
+    .headerIcon {
+      width: 100%;
+      height: 35%;
+      /* border: 1px solid purple; */
+      /* background-color: lavender; */
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* titleCont */
+    .titleCont {
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 10px;
+      /* border: 1px solid red; */
+      height: 50%;
+    }
+
+    .musicTitle {
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    .artistName {
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* photoArea */
+    .photoArea {
+      width: 95%;
+      height: 38%;
+      margin: 0 auto;
+      background-color: gold;
+      background: url('imges/outoftime_1.webp') no-repeat;
+      background-size: cover;
+      background-position: 10 0;
+    }
+
+    /* lyricsArea */
+    .lyricsArea {
+      width: 100%;
+      height: 13%;
+      /* border: 1px solid red; */
+      text-align: center;
+      padding-top: 30px;
+    }
+
+    .lyricsTxt {
+      margin: 0 auto;
+      width: 80%;
+      height: 50px;
+
+    }
+
+    /* controlRange */
+    .controlRange {
+      width: 100%;
+      height: 7%;
+      text-align: center;
+    }
+
+    .playRange {
+      width: 95%;
+    }
+    .timeRange{
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+
+    /* btnArea */
+    .btnArea {
+      width: 100%;
+      height: 7%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      /* border: 1px solid red; */
+    }
+
+    .playbackB{
+      position: relative;
+      width: 75px;
+      height: 50px;
+      text-align: center;
+    }
+    .playBtn, .stopBtn{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
+    }
+    .stopBtn{
+      display: none;
+    }
+    .AbtnBox>i {
+      width: 75px;
+    }
+
+    .AbtnBox {
+      justify-content: center;
+    }
+
+    .BbtnBox {
+      padding-top: 10px;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="headerCont">
+      <article class="headerIcon">
+        <i class="xi-angle-down xi-2x"></i>
+      </article>
+      <section class="titleCont">
+        <article>
+          <i class="xi-heart-o xi-2x"></i>
+          <p>23</p>
+        </article>
+        <article class="titleTxt">
+          <h2 class="musicTitle">Out of Time</h2>
+          <p class="artistName">The Weeknd</p>
+        </article>
+        <i class="xi-youtube-play xi-2x"></i>
+      </section>
+    </section>
+    <!-- //headerCont  -->
+    <section class="photoArea">
+      <!-- 앨범이미지영역 -->
+    </section>
+    <!-- //photoArea -->
+    <div class="lyricsArea">
+      <div class="lyricsTxt">
+        The last few months<br>
+        I've been working on me, baby
+      </div>
+    </div>
+    <div class="controlRange">
+      <input id="playRange" class="playRange" type="range">
+      <article class="timeRange">
+        <p id="startTime" class="startTime">00:00</p>
+        <p id="endTime" class="endTime">0</p>
+      </article>
+
+      <!-- 오디오 -->
+      <audio id="outOfTime" src="audio/Out of Time Audio.mp3"></audio> 
+    </div>
+    <div class="AbtnBox btnArea">
+      <i id="backwardBtn" class="xi-step-backward xi-2x"></i>
+      <div id="playbackB" class="playbackB">
+        <i id="playBtn" class="playBtn xi-play xi-3x"></i>
+        <i id="stopBtn" class="stopBtn xi-pause xi-3x"></i>
+      </div>
+      <i id="forwardBtn" class="xi-step-forward xi-2x"></i>
+    </div>
+    <div class="BbtnBox btnArea">
+      <i id="repeatBtn" class="xi-repeat xi-2x"></i>
+      <i id="shuffleBtn" class="xi-shuffle xi-2x"></i>
+      <i id="volumeBtn" class="xi-volume-up xi-2x"></i>
+      <i id="ListBtn" class="xi-indent xi-2x"></i>
+    </div>
+  </div>
+
+  <!-- script -->
+  <script>
+  // DOM ID
+  const audio = document.getElementById('outOfTime');
+  const playRange = document.getElementById('playRange');
+  const startTime = document.getElementById('startTime');
+  const endTime = document.getElementById('endTime');
+  const playBtn = document.getElementById('playBtn');
+  const stopBtn = document.getElementById('stopBtn');
+  const backwardBtn = document.getElementById('backwardBtn');
+  const forwardBtn = document.getElementById('forwardBtn');
+
+ 
+    playRange.value =0; // 초기값
+    let minutes = parseInt(audio.duration/60);
+    let second = parseInt(audio.duration%60);
+    playRange.max=audio.duration;
+    endTime.innerText = `0${minutes}:${second}`; 
+  
+
+  // play
+  playBtn.addEventListener("click",(event)=>{
+    playBtn.style.display="none";
+    stopBtn.style.display="block";
+    audio.play();
+  });
+  
+  // stop
+  stopBtn.addEventListener("click",(event)=>{
+    stopBtn.style.display="none";
+    playBtn.style.display="block";
+    audio.pause();
+  });
+  
+  // startTime
+  audio.addEventListener("timeupdate",(event)=>{
+    let minutes = parseInt(audio.currentTime/60);
+    let second = parseInt(audio.currentTime%60);
+    let secondV = second<10 ? ('0'+ second) : second;
+    playRange.value=audio.currentTime;
+    startTime.textContent=`0${minutes}:${secondV}`;
+  });
+
+  // input range 조작시
+  playRange.addEventListener("input",(event)=>{
+    audio.currentTime = playRange.value ;
+  });
+
+  
+  // // 오디오 종료 시 슬라이더 및 시간 리셋
+  // audio.addEventListener('ended', () => {
+  //   playRange.value = 0;
+  //   startTime.textContent = formatTime(0);
+  // });
+
+
+
+  </script>
+</body>
+
+</html>
