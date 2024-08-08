@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- icon -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <!-- font:Lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- font: Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- font:Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- script  -->
+
+  <title>Document</title>
+  <style>
+    /* setting */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: #fff;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* html,body{
+      font-size: 10px;
+    } */
+    /* 모든 icon 적용 */
+    i {
+      cursor: pointer;
+    }
+
+    /* start */
+    .wrap {
+      width: 430px;
+      height: 870px;
+      margin: 0 auto;
+      background-image: linear-gradient(rgba(24, 24, 24, 0.757),
+          rgba(24, 24, 24, 0.938)), url("images/1.jpg");
+      padding: 20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 0;
+    }
+
+    /* headerCont */
+    .headerCont {
+      width: 100%;
+      height: 18%;
+      margin-top: 2px;
+      /* border: 1px solid green; */
+    }
+
+    .headerIcon {
+      width: 100%;
+      height: 40%;
+      /* border: 1px solid purple; */
+      /* background-color: lavender; */
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* titleCont */
+    .titleCont {
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      /* padding-top: 5px; */
+      /* border: 1px solid red; */
+      height: 60%;
+    }
+
+    .musicTitle {
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    .artistName {
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* photoArea */
+    .photoArea {
+      width: 95%;
+      height: 44%;
+      margin: 0 auto;
+      background-color: gold;
+      background: url('images/1.jpg') no-repeat;
+      background-size: cover;
+      background-position: 10 0;
+      border-radius: 10px;
+    }
+
+    /* lyricsArea */
+    .lyricsArea {
+      width: 100%;
+      height: 14%;
+      /* border: 1px solid red; */
+      text-align: center;
+      padding-top: 35px;
+    }
+
+    .lyricsTxt {
+      margin: 0 auto;
+      width: 80%;
+      height: 50px;
+    }
+
+    /* controlRange */
+    .controlRange {
+      width: 100%;
+      height: 8%;
+      text-align: center;
+      /* border: 1px solid red; */
+    }
+
+    .playRange {
+      width: 95%;
+    }
+
+    .timeRange {
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+
+    /* btnArea */
+    .btnArea {
+      width: 100%;
+      height: 8%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      /* border: 1px solid red; */
+    }
+
+    .playbackB {
+      position: relative;
+      width: 75px;
+      height: 50px;
+      text-align: center;
+    }
+
+    .playBtn,
+    .stopBtn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .stopBtn {
+      display: none;
+    }
+
+    .AbtnBox>i {
+      width: 75px;
+    }
+
+    .AbtnBox {
+      justify-content: center;
+      /* border: 1px solid red; */
+    }
+
+    .BbtnBox {
+      padding-top: 10px;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="headerCont">
+      <article class="headerIcon">
+        <i class="xi-angle-down xi-2x"></i>
+      </article>
+      <section class="titleCont">
+        <article id="heartBox">
+          <i id="heartBtn" class="xi-heart-o xi-2x"></i>
+        </article>
+        <article class="titleTxt">
+          <h2 class="musicTitle">Music title</h2>
+          <p class="artistName">artist</p>
+        </article>
+        <i class="xi-youtube-play xi-2x"></i>
+      </section>
+    </section>
+    <!-- //headerCont  -->
+    <section class="photoArea">
+      <!-- 앨범이미지영역 -->
+    </section>
+    <!-- //photoArea -->
+    <div class="lyricsArea">
+      <div class="lyricsTxt">
+        The last few months<br>
+        I've been working on me, baby
+      </div>
+    </div>
+    <div class="controlRange">
+      <input id="playRange" class="playRange" type="range" value="0">
+      <article class="timeRange">
+        <p id="startTime" class="startTime">00:00</p>
+        <p id="endTime" class="endTime">0</p>
+      </article>
+
+      <!-- 오디오 -->
+      <audio id="music" src="audio/Nice To Meet You.mp3"></audio>
+    </div>
+    <div class="AbtnBox btnArea">
+      <i id="backwardBtn" class="xi-step-backward xi-2x"></i>
+      <div id="playbackB" class="playbackB">
+        <i id="playBtn" class="playBtn xi-play xi-3x"></i>
+        <i id="stopBtn" class="stopBtn xi-pause xi-3x"></i>
+      </div>
+      <i id="forwardBtn" class="xi-step-forward xi-2x"></i>
+    </div>
+    <div class="BbtnBox btnArea">
+      <i id="repeatBtn" class="xi-repeat xi-2x"></i>
+      <i id="shuffleBtn" class="xi-shuffle xi-2x"></i>
+      <i id="volumeBtn" class="xi-volume-up xi-2x"></i>
+      <i id="ListBtn" class="xi-indent xi-2x"></i>
+    </div>
+  </div>
+
+  <!-- <script src="musicPlayer.js" defer></script> -->
+  <script>
+    const musicContents = {
+      music1: {
+        title: 'Nice To Meet You',
+        artist: 'Imagine Dragons',
+        videoUrl: 'https://www.youtube.com/watch?v=NeUfmyu5t8Q',
+        lyricsText: '',
+        albumCover: '1.jpg',
+        audioFile: 'Nice To Meet You.mp3',
+        likesCount: 0,
+        isLiked: false
+      },
+      music2: {
+        title: 'Out of Time',
+        artist: 'The Weeknd',
+        videoUrl: 'https://www.youtube.com/watch?v=2fDzCWNS3ig',
+        lyricsText: '',
+        albumCover: '2.jpg',
+        audioFile: 'Out of Time.mp3',
+        likesCount: 0,
+        isLiked: false
+      },
+      music3: {
+        title: 'Lemons',
+        artist: 'Spencer Sutherland',
+        videoUrl: 'https://www.youtube.com/watch?v=2fDzCWNS3ig',
+        lyricsText: '',
+        albumCover: '3.jpg',
+        audioFile: 'Lemons .mp3',
+        likesCount: 0,
+        isLiked: false
+      },
+      music4: {
+        title: "That's Hilarious",
+        artist: 'Charlie Puth',
+        videoUrl: 'https://www.youtube.com/watch?v=2fDzCWNS3ig',
+        lyricsText: '',
+        albumCover: '4.jpg',
+        audioFile: "That's Hilarious.mp3",
+        likesCount: 0,
+        isLiked: false
+      }
+    }
+
+    /*{
+      // 좋아요기능
+      const heartBox = document.getElementById('heartBox');
+      const heartBtn = document.getElementById('heartBtn');
+      playRange.value = 0; // 초기값
+
+      //loadedmetadata
+      audio.addEventListener('loadedmetadata', () => {
+        let minutes = parseInt(audio.duration / 60);
+        let second = parseInt(audio.duration % 60);
+        playRange.max = audio.duration;
+        endTime.innerText = `0${minutes}:${second}`;
+      });
+
+      // play
+      playBtn.addEventListener("click", (event) => {
+        playBtn.style.display = "none";
+        stopBtn.style.display = "block";
+        audio.play();
+      });
+
+      // stop
+      stopBtn.addEventListener("click", (event) => {
+        stopBtn.style.display = "none";
+        playBtn.style.display = "block";
+        audio.pause();
+      });
+
+      // startTime
+      audio.addEventListener("timeupdate", (event) => {
+        let minutes = parseInt(audio.currentTime / 60);
+        let second = parseInt(audio.currentTime % 60);
+        let secondV = second < 10 ? ('0' + second) : second;
+        playRange.value = audio.currentTime;
+        startTime.textContent = `0${minutes}:${secondV}`;
+      });
+
+      // input range 조작시
+      playRange.addEventListener("input", (event) => {
+        audio.currentTime = playRange.value;
+      });
+
+      //heartBtn toggle (classList사용)
+      heartBtn.addEventListener("click", (event) => {
+        if (heartBtn.classList.contains('xi-heart-o')) {
+          heartBtn.classList.remove('xi-heart-o');
+          heartBtn.classList.add('xi-heart');
+        } else {
+          heartBtn.classList.add('xi-heart-o');
+          heartBtn.classList.remove('xi-heart');
+        }
+      });
+
+      // // 뮤직 끝
+      // audio.addEventListener('ended', () => {
+      //   playRange.value = 0;
+      //   startTime.textContent = 0;
+      // });
+    }*/
+
+
+    // #Class_CircularLinkedList
+    class CircularLinkedList {
+      constructor(id) {
+        this.id = id;
+        this._prev = null;
+        this._next = null;
+        this.length = 0;
+      }
+      set prev(pLink) { this._prev = pLink; }
+      get prev() { return this._prev; }
+      set next(nLink) { this._next = nLink; }
+      get next() { return this._next; }
+    }//end_CircularLinkedList
+
+
+    // #Class_MusicNode
+    class MusicNode {
+      constructor(id,musicObject) {
+        this.id=id;
+        this.musicContents = musicObject;
+        this.musicLinks = [];
+        this.musicLength = 0;
+      }
+      createLinks() {
+        this.musicLength = Object.keys(this.musicContents).length;
+        for (let i = 0; i <  this.musicLength; i++) {
+          this.musicLinks.push(new CircularLinkedList(`music${i + 1}`));
+        }
+      }
+      linkNodes() {
+          this.musicLength = this.musicLinks.length;
+        for (let i = 0; i <  this.musicLength; i++) {
+          if (i === 0) {
+            // First 
+            this.musicLinks[i].prev = this.musicLinks[ this.musicLength - 1]; 
+            this.musicLinks[i].next = this.musicLinks[i + 1]; 
+          } else if (i ===  this.musicLength - 1) {
+            // Last 
+            this.musicLinks[i].prev = this.musicLinks[i - 1]; 
+            this.musicLinks[i].next = this.musicLinks[0]; 
+          } else {
+            // Middle 
+            this.musicLinks[i].prev = this.musicLinks[i - 1];
+            this.musicLinks[i].next = this.musicLinks[i + 1];
+          }
+        }
+      }
+      setNode(){
+        this.createLinks();
+        this.linkNodes();
+      }
+    }//end_MusicNode
+    const musicNodeLink = new MusicNode('musicNodeLink',musicContents);
+    musicNodeLink.setNode();
+
+
+
+
+
+
+// #Class_MusicPlayer
+class MusicPlayer {
+    constructor(id, musicNode) {
+        this.id = id;
+        this.musicNode = musicNode;
+        this.currentTrack = this.musicNode.musicLinks[0];
+
+        // DOM Element
+        this.audio = document.getElementById('music');
+        this.playRange = document.getElementById('playRange');
+        this.startTime = document.getElementById('startTime');
+        this.endTime = document.getElementById('endTime');
+        this.playBtn = document.getElementById('playBtn');
+        this.stopBtn = document.getElementById('stopBtn');
+        this.backwardBtn = document.getElementById('backwardBtn');
+        this.forwardBtn = document.getElementById('forwardBtn');
+        this.heartBtn = document.getElementById('heartBtn');
+        this.musicTitle = document.getElementById('musicTitle');
+        this.artistName = document.getElementById('artistName');
+        this.lyricsText = document.getElementById('lyricsText');
+        this.photoArea = document.querySelector('.photoArea');
+
+        this.addEventListeners();
+        this.loadTrack(this.currentTrack.id);
+    }
+
+    addEventListeners() {
+        // Play button
+        this.playBtn.addEventListener("click", () => {
+            this.play();
+        });
+
+        // Stop button
+        this.stopBtn.addEventListener("click", () => {
+            this.stop();
+        });
+
+        // Forward button
+        this.forwardBtn.addEventListener("click", () => {
+            this.nextTrack();
+        });
+
+        // Backward button
+        this.backwardBtn.addEventListener("click", () => {
+            this.prevTrack();
+        });
+
+        // Time update
+        this.audio.addEventListener("timeupdate", () => {
+            this.updateTime();
+        });
+
+        // Loaded metadata
+        this.audio.addEventListener('loadedmetadata', () => {
+            this.updateDuration();
+        });
+
+        // Range input
+        this.playRange.addEventListener("input", () => {
+            this.audio.currentTime = this.playRange.value;
+        });
+
+        // Heart button toggle
+        this.heartBtn.addEventListener("click", () => {
+            this.toggleLike();
+        });
+
+        // Track ended
+        this.audio.addEventListener('ended', () => {
+            this.nextTrack();
+        });
+    }
+
+    loadTrack(trackId) {
+        const track = this.musicNode.musicContents[trackId];
+        this.audio.src = `audio/${track.audioFile}`;
+        this.musicTitle.textContent = track.title;
+        this.artistName.textContent = track.artist;
+        this.lyricsText.innerHTML = track.lyricsText;
+        this.photoArea.style.backgroundImage = `url(${track.albumCover})`;
+
+        this.heartBtn.classList.toggle('xi-heart', track.isLiked);
+        this.heartBtn.classList.toggle('xi-heart-o', !track.isLiked);
+
+        this.audio.load();
+    }
+
+    play() {
+        this.playBtn.style.display = "none";
+        this.stopBtn.style.display = "block";
+        this.audio.play();
+    }
+
+    stop() {
+        this.stopBtn.style.display = "none";
+        this.playBtn.style.display = "block";
+        this.audio.pause();
+    }
+
+    nextTrack() {
+        this.currentTrack = this.currentTrack.next;
+        this.loadTrack(this.currentTrack.id);
+        this.play();
+    }
+
+    prevTrack() {
+        this.currentTrack = this.currentTrack.prev;
+        this.loadTrack(this.currentTrack.id);
+        this.play();
+    }
+
+    updateTime() {
+        let minutes = parseInt(this.audio.currentTime / 60);
+        let seconds = parseInt(this.audio.currentTime % 60);
+        let secondsFormatted = seconds < 10 ? ('0' + seconds) : seconds;
+        this.playRange.value = this.audio.currentTime;
+        this.startTime.textContent = `0${minutes}:${secondsFormatted}`;
+    }
+
+    updateDuration() {
+        let minutes = parseInt(this.audio.duration / 60);
+        let seconds = parseInt(this.audio.duration % 60);
+        let secondsFormatted = seconds < 10 ? ('0' + seconds) : seconds;
+        this.playRange.max = this.audio.duration;
+        this.endTime.textContent = `0${minutes}:${secondsFormatted}`;
+    }
+
+    toggleLike() {
+        const track = this.musicNode.musicContents[this.currentTrack.id];
+        track.isLiked = !track.isLiked;
+        this.heartBtn.classList.toggle('xi-heart', track.isLiked);
+        this.heartBtn.classList.toggle('xi-heart-o', !track.isLiked);
+    }
+}
+
+    const musicPlayer = new MusicPlayer('musicPlayer',musicNodeLink)
+
+
+
+    /* 
+        {
+      //1-1. object길이만큼 (Object.keys(musicContents).length)
+      const musicLink = []; // 1-2. class 생성
+      const numTracks = Object.keys(musicContents).length;
+      for (let i = 1; i <= Object.keys(musicContents).length; i++) {
+        musicLink.push(new CircularLinkedList(`musicLink${i}`));
+      }
+
+      //2 prev next 설정
+      for (let i = 0; i < numTracks; i++) {
+        if (i == 1) {
+          musicLink[i].prev = musicLink[numTracks - 1];
+          musicLink[i].next = musicLink[i + 1];
+        } else if (i == numTracks - 1) {
+          musicLink[i].prev = musicLink[i - 1];
+          musicLink[i].next = musicLink[0];
+        } else {
+          musicLink[i].prev = musicLink[i - 1];
+          musicLink[i].next = musicLink[i + 1];
+        }
+      }
+    }
+    */
+
+  </script>
+</body>
+
+</html>
