@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- icon -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <!-- font:Lato -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- font: Noto Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- font:Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <!-- script  -->
+
+  <title>Document</title>
+  <style>
+    /* setting */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      color: #fff;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 10px;
+    }
+    /* 모든 icon 적용 */
+    i {
+      cursor: pointer;
+    }
+    .iconSizeA{
+      font-size: 3.25rem;
+    }
+    .iconSizeB{
+      font-size: 5rem;
+    }
+    /* start */
+    .wrap {
+      width: 430px;
+      height: 870px;
+      margin: 0 auto;
+      background-image: linear-gradient(rgba(24, 24, 24, 0.757),
+          rgba(24, 24, 24, 0.938)), url("images/1.jpg");
+      padding: 20px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 51% 0;
+    }
+
+    /* headerCont */
+    .headerCont {
+      width: 100%;
+      height: 18%;
+      margin-top: 2px;
+      /* border: 1px solid green; */
+    }
+
+    .headerIcon {
+      width: 100%;
+      height: 40%;
+      /* border: 1px solid purple; */
+      /* background-color: lavender; */
+      display: flex;
+      justify-content: space-between;
+    }
+    .xi-heart{
+      color: #ff8be2;
+      transition: 0.3s;
+    }
+    .xi-heart-o{
+      transition: 0.3s;
+    }
+
+    /* titleCont */
+    .titleCont {
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      /* padding-top: 5px; */
+      /* border: 1px solid red; */
+      height: 60%;
+    }
+    .titleTxt h2{
+      font-size: 2.1rem;
+    }
+    .titleTxt p{
+      font-size: 1.4rem;
+    }
+    .musicTitle {
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    .artistName {
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    /* photoArea */
+    .photoArea {
+      width: 95%;
+      height: 44%;
+      margin: 0 auto;
+      background-image: url('images/1.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 10 0;
+      border-radius: 10px;
+    }
+
+    /* lyricsArea */
+    .lyricsArea {
+      width: 100%;
+      height: 14%;
+      /* border: 1px solid red; */
+      text-align: center;
+      padding-top: 35px;
+    }
+    .viewLyricsBtn{
+      display: inline-block;
+      font-size: 1.4rem;
+      font-weight: 450;
+      background: #0000005b;
+      padding: 1rem 7rem;
+      border-radius: 0.8rem;
+      /* border: 1px solid red; */
+    }
+    .viewLyricsBtn:hover{
+      background: #0e0e0e;
+      transition: 0.2s;
+    }
+
+    .lyricsTxt {
+      margin: 0 auto;
+      width: 80%;
+      height: 50px;
+    }
+
+    /* controlRange */
+    .controlRange {
+      width: 100%;
+      height: 8%;
+      text-align: center;
+      /* border: 1px solid red; */
+    }
+
+    .playRange {
+      width: 95%;
+    }
+
+    .timeRange {
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+    .timeRange p{
+      font-size: 1.4rem;
+    }
+    /* btnArea */
+    .btnArea {
+      width: 100%;
+      height: 8%;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      /* border: 1px solid red; */
+    }
+
+    .playbackB {
+      position: relative;
+      width: 75px;
+      height: 50px;
+      text-align: center;
+    }
+
+    .playBtn,
+    .stopBtn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .stopBtn {
+      display: none;
+    }
+
+    .AbtnBox>i {
+      width: 75px;
+    }
+
+    .AbtnBox {
+      justify-content: center;
+      /* border: 1px solid red; */
+    }
+
+    .BbtnBox {
+      padding-top: 10px;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="contentWrap" class="wrap">
+    <section class="headerCont">
+      <article class="headerIcon">
+        <i class="xi-angle-down iconSizeA"></i>
+      </article>
+      <section class="titleCont">
+        <article id="heartBox">
+          <i id="heartBtn" class="xi-heart-o heartBtn iconSizeA"></i>
+        </article>
+        <article class="titleTxt">
+          <h2 id="musicTitle" class="musicTitle">Music title</h2>
+          <p id="artistName" class="artistName">artist</p>
+        </article>
+        <a href="#" id="linkMovie" target="_blank"><i class="xi-youtube-play iconSizeA"></i></a>
+      </section>
+    </section>
+    <!-- //headerCont  -->
+    <article id="photoArea" class="photoArea">
+      <!-- [앨범이미지] -->
+    </article>
+    <!-- //photoArea -->
+    <section class="lyricsArea">
+      <div id="viewLyricsBtn" class="viewLyricsBtn">View Lyrics</div>
+      <article id="lyricsTxt" class="lyricsTxt">
+        <!-- [가사] -->
+      </article>
+    </section>
+    <section class="controlRange">
+      <input id="playRange" class="playRange" type="range" value="0">
+      <article class="timeRange">
+        <p id="startTime" class="startTime">00:00</p>
+        <p id="endTime" class="endTime">0</p>
+      </article>
+      <!-- [오디오] -->
+      <audio id="audioFile" src="audio/Nice To Meet You.mp3"></audio>
+    </section>
+    <!-- //controlRange -->
+    <section class="AbtnBox btnArea">
+      <i id="backwardBtn" class="xi-step-backward iconSizeA"></i>
+      <article id="playbackB" class="playbackB">
+        <i id="playBtn" class="playBtn xi-play iconSizeB"></i>
+        <i id="stopBtn" class="stopBtn xi-pause iconSizeB"></i>
+      </article>
+      <i id="forwardBtn" class="xi-step-forward iconSizeA"></i>
+    </section>
+    <!-- //AbtnBox -->
+    <article class="BbtnBox btnArea">
+      <i id="repeatBtn" class="xi-repeat iconSizeA"></i>
+      <i id="shuffleBtn" class="xi-shuffle iconSizeA"></i>
+      <i id="volumeBtn" class="xi-volume-up iconSizeA"></i>
+      <i id="ListBtn" class="xi-indent iconSizeA"></i>
+    </article>
+    <!-- //BbtnBox -->
+  </div>
+  <!-- //wrap -->
+
+  <script src="musicPlayer_v2.js" defer></script>
+</body>
+
+</html>

@@ -192,14 +192,13 @@ class MusicPlayer {
       heartBtn.classList.remove('xi-heart-o');
       heartBtn.classList.add('xi-heart');
     };
-    this.audioFile.play();
-    // this.heartFunc();
+    // this.audioFile.play();
   }//
   playMusic() {
     this.playBtn.addEventListener("click", (event) => {
       this.playBtn.style.display = "none";
       this.stopBtn.style.display = "block";
-      document.getElementById('audioFile').play();
+      this.audioFile.play();
     });
   }//
   pauseMusic() {
@@ -247,11 +246,14 @@ class MusicPlayer {
   }//
   backwardPlay() {
     this.backwardBtn.addEventListener("click", (event) => {
-      this.audioFile.play();
       this.playListNum%=(musicNodeLink.musicLinks.length)
       const currentNum = musicNodeLink.musicLinks[this.playListNum]._prev.id;
       this.currentNode = musicContents[currentNum];
       this.updateDOM();
+      // 이동시 바로 재생
+      this.audioFile.play();
+      this.playBtn.style.display = "none";
+      this.stopBtn.style.display = "block";
       this.playListNum--; 
       if(this.playListNum===-1){
         this.playListNum=(musicNodeLink.musicLinks.length);
@@ -261,25 +263,28 @@ class MusicPlayer {
   }//
   forwardPlay() {
     this.forwardBtn.addEventListener("click", (event) => {
-      this.audioFile.play();
       this.playListNum%=(musicNodeLink.musicLinks.length)
       const currentNum = musicNodeLink.musicLinks[this.playListNum]._next.id;
       this.currentNode = musicContents[currentNum];
       this.updateDOM();
+      // 이동시 바로 재생
+      this.audioFile.play();
+      this.playBtn.style.display = "none";
+      this.stopBtn.style.display = "block";
       // this.heartFunc();
       this.playListNum++; 
     })
   }//
   playTrack() {
-    this.playMusic();
-    this.pauseMusic();
+    this.updateDOM();
     this.loadData();
     this.musicTimeUpdate();
-    this.musicRange();
-    this.updateDOM();
-    this.heartFunc();
     this.forwardPlay();
     this.backwardPlay();
+    this.playMusic();
+    this.pauseMusic();
+    this.musicRange();
+    this.heartFunc();
   }//
 }//end_MusicPlayer
 
