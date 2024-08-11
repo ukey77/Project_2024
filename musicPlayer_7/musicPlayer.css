@@ -1,0 +1,534 @@
+/* setting */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10px;
+}
+
+/* 모든 icon 적용 */
+i {
+  cursor: pointer;
+}
+
+.iconSizeA {
+  font-size: 3.7rem;
+}
+
+.iconSizeB {
+  font-size: 5rem;
+}
+
+.iconSizeC{
+  font-size: 1.6rem;
+}
+/* start */
+
+#layoutWrapper{
+  position: relative;
+  width: 43rem;
+  height: 87rem;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.wrap {
+  width: 43rem;
+  height: 87rem;
+  margin: 0 auto;
+  /* background-image: linear-gradient(rgba(24, 24, 24, 0.757),
+      rgba(24, 24, 24, 0.938)), url("images/niceToMeetYou.jpg"); */
+  padding: 2rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 51% 0;
+  overflow: hidden;
+}
+
+/* headerCont */
+.headerCont {
+  width: 100%;
+  height: 18%;
+  margin-top: 2px;
+  /* border: 1px solid green; */
+}
+
+.headerIcon {
+  width: 100%;
+  height: 40%;
+  /* border: 1px solid purple; */
+  /* background-color: lavender; */
+  display: flex;
+  justify-content: space-between;
+}
+/* 상단아이콘 */
+
+.xi-angle-down{
+  position: relative;
+  z-index: 100;
+}
+
+.xi-heart {
+  position: relative;
+  color: #ff8be2;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.xi-heart-o {
+  position: relative;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+.xi-youtube-play{
+  position: relative;
+  z-index: 100;
+}
+
+/* titleCont */
+.titleCont {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+  height: 60%;
+}
+
+.musicTitle {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 2.35rem;
+  letter-spacing: 0.05rem;
+}
+
+.artistName {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.65rem;
+  padding-top: 0.1rem;
+  letter-spacing: 0.05rem;
+}
+
+/* photoArea */
+.photoArea {
+  width: 95%;
+  height: 44%;
+  margin: 0 auto;
+  background-image: url('images/niceToMeetYou.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 10 0;
+  border-radius: 10px;
+}
+
+/* ====================가사영역==================== */
+/* lyricsArea */
+.lyricsArea {
+  width: 100%;
+  height: 14%;
+  /* border: 1px solid red; */
+  text-align: center;
+  padding-top: 3.5rem;
+}
+
+.viewLyricsBtn {
+  display: inline-block;
+  font-weight: 430;
+  font-style: normal;
+  font-size: 1.55rem;
+  letter-spacing: 0.1rem;
+  background: #bbbbbb2a;
+  padding: 1.3rem 8.3rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  /* border: 1px solid red; */
+}
+
+.viewLyricsBtn:active {
+  background: #7c7c7c8e;
+  /* transition: 0.2s; */
+}
+
+.lyricsContWrap{
+  position: absolute;
+  width: 100%;
+  height: 54%;
+  left: 50%;
+  top: 18%;
+  transform: translate(-50%);
+  overflow: hidden;
+  display: none; /*변경되는값*/
+  /* border: 1px solid gold; */
+  transition: 0.5s;
+}
+
+.lyricsContBox{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 100%; /*변경되는값*/
+  /* background: #222; */
+  background-image: linear-gradient(to bottom,rgba(22, 22, 22, 0.9),
+  rgba(22, 22, 22, 0.9)), url("images/niceToMeetYou.jpg");
+  background-repeat: no-repeat;
+  background-size: 200%;
+  background-position: 51% 40%;
+  padding: 1.4rem 2.5rem;
+  overflow: scroll;
+  transition: 0.5s;
+  /* border: 1px solid red; */
+}
+
+.lyricsContTxt{
+  font-size: 1.56rem;
+  line-height: 2.8rem;
+  color: #f3f2f2;
+}
+
+.lyricsBoxShadowAreaTop,
+.lyricsBoxShadowAreaBottom{
+  position:absolute;
+  width: 43rem;
+  height: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+  top: 69.8%;
+  background: linear-gradient(to bottom, rgba(30, 30, 30, 0.1) 30%, rgba(30, 30, 30, 0.9) 100%);
+  /* border: 1px solid red; */
+  display: none; /*변경되는값*/
+}
+
+.lyricsBoxShadowAreaTop{
+  top: 18%;
+  background: linear-gradient(to top, rgba(30, 30, 30, 0.1) 30%, rgba(30, 30, 30, 0.9) 100%);
+   /* border: 1px solid red; */
+  display: none; /*변경되는값*/
+}
+
+.hidelyricsBoxArea{
+  position:absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 18%;
+  background: transparent;
+  z-index: 1;
+}
+
+/* ======= 가사 ======= */
+
+/* controlRange */
+.controlRange {
+  width: 100%;
+  height: 8%;
+  text-align: center;
+  /* border: 1px solid red; */
+}
+
+.playRange{
+  width: 95%;
+  -webkit-appearance: none;
+  border-radius: 0.1rem;
+  height: 0.5rem;
+}
+
+.playRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0.5rem;
+  height: 1.65rem;
+  border-radius: 0.15rem;
+  background-color: transparent;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.playRange:active::-webkit-slider-thumb {
+  background-color: #00c3ff; /* 활성 상태일 때 배경색 */
+}
+
+.timeRange {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.timeRange p {
+  font-size: 1.45rem;
+  padding-top: 0.5rem;
+}
+
+/* btnArea */
+.btnArea {
+  width: 100%;
+  height: 7.5%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.playbackB {
+  position: relative;
+  width: 75px;
+  height: 50px;
+  text-align: center;
+}
+
+.playBtn,
+.stopBtn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.stopBtn {
+  display: none;
+}
+
+.AbtnBox>i {
+  width: 75px;
+}
+
+.AbtnBox {
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+
+.BbtnBox {
+  padding-top: 10px;
+  justify-content: space-between;
+}
+
+.repeatOneActiveBtn, .repeatActiveBtn, .shuffleActiveBtn{
+  color: #00c3ff;
+}
+
+/* ====================playlist==================== */
+/* playlistWrapBox */
+.playlistWrapBox {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%);
+  width: 43rem;
+  height: 87rem;
+  background-color: #474747;
+  margin: 0 auto;
+  transition: 0.3s;
+  z-index: 200;
+  /* display: none; */
+  /* padding: 1.5rem; */
+}
+
+/* playlistHeader */
+.playlistHeader {
+  padding: 1.5rem;
+  width: 100%;
+  height: 10%;
+  border-bottom: 2px solid rgb(121, 121, 121);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px solid red; */
+}
+
+.playlistClose{
+  font-size: 2.3rem;
+  font-weight: 500;
+  /* border: 1px solid rgb(255, 174, 0); */
+}
+.playPageTxt {
+  font-size: 2.3rem;
+  font-weight: 500;
+  /* border: 1px solid rgb(51, 255, 0); */
+}
+img{
+  width: 3.5rem;
+}
+/* playlistBox */
+.playlistBox {
+  padding: 1.5rem;
+  width: 100%;
+  height: 80%;
+  overflow-y: scroll;
+  /* border: 1px solid orange; */
+}
+
+.playlistTotal{
+  font-size: 1.2rem;
+}
+
+.playlistCount{
+  font-size: 1.25rem;
+  color: #00c3ff;
+}
+
+/* 스크롤바 표시 */
+::-webkit-scrollbar {
+  display: none; /*Chrome, Safari, Opera*/
+  width: 0px;
+}
+/* playlistItem */
+.playlistItem {
+  position: relative;
+  width: 99%;
+  height: 10%;
+  background: rgb(44, 44, 44);
+  margin: 0 auto;
+  display: flex;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  align-items: center;
+}
+
+/* 투명으로 커버씌움 */
+.playlistItemCover{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.playlistAlbumImg {
+  width: 17%;
+  height: 98%;
+  border-radius: 0.5rem;
+  background-image: url("images/niceToMeetYou.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.playlistTxtBox {
+  width: 65%;
+  height: 85%;
+  padding: 0.6rem 0 0 1.3rem;
+  /* border: 1px solid red; */
+}
+
+.playlistTitle {
+  font-size: 1.5rem;
+}
+
+.playlistArtist {
+  padding-top: 0.4rem;
+}
+
+.playlistArtist, .playlistDuration{
+  font-size: 1.25rem;
+  color: #bbbbbb;
+}
+
+.playlistDuration{
+  padding-left: 0.7rem;
+}
+
+/* 음악이 활성화 될때 */
+.pActive{
+  color: #00c3ff;
+}
+.xi-chart-bar{
+ opacity: 0;
+}
+.pActiveIcon{
+  opacity: 1;
+}
+
+/* activePlayMusicBox */
+.activePlayMusicBox{
+  width: 100%;
+  height: 10%;
+  /* background-image: linear-gradient(rgba(36, 36, 36, 0.719),
+      rgba(24, 24, 24, 0.815)), url("images/niceToMeetYou.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+}
+
+.playlistMusicBtn{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  display: flex;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.playlistBtn{
+  width: 15%;
+  height: 5rem;
+  /* border: 1px solid blue; */
+}
+.prevnextBtn{
+  padding-top: 0.8rem;
+}
+.playlistPlayBackB {
+  position: relative;
+}
+
+.playlistPlayBtn,
+.playlistPauseBtn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.playlistPauseBtn{
+  display: none;
+}
+
+.activePlayMusicImg{
+ position: absolute;
+ right: 3%;
+ top: 50%;
+ transform: translateY(-50%);
+ width: 5rem;
+ height: 100%;
+ background-image: url('images/niceToMeetYou.jpg');
+ background-repeat: no-repeat;
+ background-size: cover;
+ border-radius: 0.3rem;
+}
+
+/* activePlayMusicRange */
+.activePlayMusicRange {
+  -webkit-appearance: none; /* 기본 슬라이더 스타일 제거 */
+  width: 100%; /* 슬라이더 너비 */
+  height: 0.3rem; /* 슬라이더 트랙 높이 */
+  /* background: linear-gradient(to right, #00c3ff 50%, #ddd 50%);  */
+}
+
+/* 트랙 스타일 (웹킷 기반 브라우저 - 크롬) */
+.activePlayMusicRange::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.3rem; /* 슬라이더 트랙 높이 */
+  background: transparent; /* 트랙 배경 투명 */
+  cursor: default; /* 커서 기본 상태로 설정 */
+}
+
+/* 핸들(thumb) 제거 (웹킷 기반 브라우저 - 크롬) */
+.activePlayMusicRange::-webkit-slider-thumb {
+  -webkit-appearance: none; /* 기본 핸들 스타일 제거 */
+  appearance: none;
+  width: 0; /* 핸들 크기를 0으로 설정 */
+  height: 0;
+  background: transparent; /* 핸들 배경색을 투명하게 */
+  box-shadow: none; /* 그림자 제거 */
+  border: none; /* 테두리 제거 */
+  pointer-events: none; /* 핸들 이벤트 제거 */
+}
+
+
+
+
+
