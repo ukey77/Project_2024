@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- icon : xeicon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <!-- icon : font-awesome -->
+  <script src="https://kit.fontawesome.com/5f8658d4f2.js" crossorigin="anonymous"></script>
+  <!-- font : NotoSans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <!-- favicon -->
+  <link rel="icon" href="images/calcFavicon_1.png" type="image/x-icon">
+  <title>Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-size: 23px;
+      color: #222;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 600;
+      box-sizing: border-box;
+    }
+
+    .Container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .pageTitle {
+      padding: 30px 0;
+      font-size: 50px;
+      text-align: center;
+      margin-bottom: 50px;
+      background-color: #ced3d69d;
+      width: 100%;
+      margin: 0 auto;
+      margin-bottom: 70px;
+      font-weight: 600;
+      border-radius: 0 0 80px 80px;
+    }
+
+    .calcWrapper {
+      padding-top: 20px;
+      width: 100%;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .icon,
+    i {
+      font-size: 17px;
+      cursor: pointer;
+      font-weight: 500;
+      pointer-events: none;
+      /*구글링 : i tag 영역누를시 버튼이 클릭안되는걸 막기위해*/
+    }
+
+    /* === calculatorType === */
+    .calculatorType {
+      display: flex;
+      width: 350px;
+      height: 60px;
+      background: #E7E8EB;
+      border-radius: 35px;
+      padding: 10px;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+
+    .CalcTypeBtn {
+      width: 47%;
+      border-radius: 20px;
+      text-align: center;
+      line-height: 37px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .CalcTypeBtn.active {
+      background-color: #7F7F86;
+      color: #fff;
+      font-weight: 530;
+    }
+
+    /* == input == */
+    input[type="number"] {
+      width: 40px;
+      height: 30px;
+      text-align: right;
+    }
+
+    /* inputBox 화살표 제거 */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* ============= */
+    .equationWrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: rgba(39, 39, 39, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.1) 0px 15px 12px;
+      height: 730px;
+      border-radius: 10px;
+      width: 1200px;
+      background-color: #aab4b894;
+      /* display: none;  */
+    }
+
+    .equationArea {
+      width: 540px;
+      height: 665px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .equationForm {
+      /* border: 1px solid red; */
+      margin: 5px 0;
+    }
+
+    .removeMargin {
+      margin: 0;
+    }
+
+    .equationListBox {
+      position: relative;
+      cursor: pointer;
+      background: transparent;
+      z-index: 100;
+    }
+
+    .equationTitle {
+      position: relative;
+      margin: 12px 0 12px 7px;
+      /* border:  1px solid red; */
+      display: inline-block;
+      width: 93%;
+      font-size: 22.8px;
+      z-index: -1;
+    }
+
+    .listShowIcon {
+      font-size: 22px;
+      font-weight: 580;
+    }
+
+    .equationControls {
+      width: 500px;
+      height: 20%;
+      background-color: #E7E8EB;
+      border-radius: 10px;
+      padding-left: 20px;
+      display: none;
+    }
+
+    .equationInputBox {
+      width: 83%;
+      margin-top: 15px;
+    }
+
+    .circleEquationInputBox {
+      margin-top: 8px;
+    }
+
+    .circleSinMargin {
+      margin-top: 4px;
+    }
+
+    .graphRenderButtonBox {
+      width: 17%;
+      height: 80px;
+      text-align: center;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .renderGraphBtn {
+      margin-top: 9.5px;
+      width: 60px;
+      height: 60px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.2) 2px 3px 2px 0px;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .renderGraphBtn:hover {
+      background-color: #f3f3f3;
+      box-shadow: rgba(0, 0, 0, 0.2) 2px 3px 2px 0px;
+      transform: translateY(-1px);
+    }
+
+    .renderGraphBtn:active {
+      background-color: #e0e0e0;
+      box-shadow: inset rgba(0, 0, 0, 0.2) 2px 3px 4px 0px;
+      transform: translateY(1px);
+    }
+
+    /* == renderGraphBtn img == */
+    .linearBtn {
+      background-image: url("images/graphLineR.png");
+      background-size: contain;
+    }
+
+    .quadraticBtn {
+      background-image: url("images/graphLineB.png");
+      background-size: contain;
+    }
+
+    .cubicBtn {
+      background-image: url("images/graphLineG.png");
+      background-size: contain;
+    }
+
+    .circleBtn {
+      background-image: url("images/graphLineP.png");
+      background-size: contain;
+    }
+
+    .eqListUnderLine {
+      margin: 14px 0 0px;
+      width: 500px;
+      height: 2px;
+      background-color: #A8A9B3;
+      border-radius: 10px;
+    }
+
+    /* sin letterSpacing */
+    .spacingSin {
+      letter-spacing: 2.3px;
+    }
+
+    input::placeholder {
+      text-align: center;
+    }
+
+    /* === canvas area === */
+    .canvasArea {
+      background-color: #fff;
+      width: 565px;
+      height: 665px;
+      /* 높이 추가 */
+      border-radius: 10px;
+      margin-left: 30px;
+      display: flex;
+      flex-direction: column;
+      /* 상하 배치 */
+    }
+
+    /* 상단 아이콘 박스 */
+    .canvasTopIconBox {
+      width: 100%;
+      height: 50px;
+      background: #7F7F86;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      align-items: center;
+      /* 아이콘 수직 정렬 */
+    }
+
+    /* 캔버스 스타일 */
+    .canvas {
+      width: 565px;
+      /* 부모 요소에 맞게 너비 조정 */
+      height: 565px;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* 아이콘 박스 */
+    .firstIconBox {
+      width: 13%;
+      margin-left: 10px;
+    }
+
+    .secondIconBox {
+      width: 67%;
+    }
+
+    .thirdIconBox {
+      width: 20%;
+    }
+
+    .firstIconBox {
+      width: 13%;
+      margin-left: 10px;
+    }
+
+
+    /* 아이콘 스타일 */
+    .canvasIcon {
+      font-size: 26px;
+      margin: 8px;
+      cursor: pointer;
+      pointer-events: fill;
+      transition: 0.2s;
+      border-radius: 50%;
+      padding: 4px;
+      color: #fff;
+    }
+
+    .canvasIcon:hover {
+      background: #fff;
+      color: #717177;
+    }
+
+    /* 하단 아이콘 박스 */
+    .canvasBottomIconBox {
+      width: 100%;
+      height: 50px;
+      background: #7F7F86;
+      border-radius: 0 0 10px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Clear 버튼 */
+    .canvasClearBtn {
+      display: inline-block;
+      width: 110px;
+      height: 35px;
+      text-align: center;
+      margin-right: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      line-height: 35px;
+      color: #fff;
+      transition: 0.2s;
+    }
+
+    .canvasClearIcon {
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .canvasClearBtn:hover {
+      background: #fff;
+      color: #7F7F86;
+      font-weight: 500;
+    }
+
+    .canvasClearBtn:hover .canvasClearIcon {
+      color: #7F7F86;
+      font-weight: 600;
+    }
+
+
+    /* ============= */
+  </style>
+</head>
+
+<body>
+  <div class="Container">
+    <!-- calculatorType -->
+    <h1 class="pageTitle">Calculator</h1>
+    <div id="calculatorType" class="calculatorType">
+      <p id="BasicCalcBtn" class="BasicCalcBtn CalcTypeBtn active">Basic</p>
+      <p id="GraphCalcBtn" class="GraphCalcBtn CalcTypeBtn">Graph</p>
+    </div>
+    <!-- calcWrapper -->
+    <div class="calcWrapper">
+      <div id="calcArea"></div>
+      <div id="coordinateArea">
+        <!-- ===============start================ -->
+
+        <div class="equationWrap">
+          <section id="graphCalcArea" class="equationArea">
+
+            <section class="linearEquation equationForm removeMargin">
+              <div id="linearListgraphCalc" class="equationListBox">
+                <h2 class="equationTitle">Linear Equation</h2><i id="linearListIcongraphCalc"
+                  class="xi-angle-down listShowIcon"></i>
+              </div>
+              <article id="linearControlsgraphCalc" class="equationControls">
+                <div id="linearInputBox" class="equationInputBox">
+                  <p>y = <input id="linearInputgraphCalc1" type="number" placeholder="a"> x<sup></sup> + <input
+                      id="linearInputgraphCalc2" type="number" placeholder="b"></p>
+                </div>
+                <div class="graphRenderButtonBox">
+                  <button id="linearBtngraphCalc" class="renderGraphBtn linearBtn"></button>
+                </div>
+              </article>
+              <div class="eqListUnderLine"></div>
+            </section>
+
+            <section class="quadraticEquation equationForm">
+              <div id="quadraticListgraphCalc" class="equationListBox">
+                <h2 class="equationTitle">Quadratic Equation</h2><i id="quadraticListIcongraphCalc"
+                  class="xi-angle-down listShowIcon"></i>
+              </div>
+              <article id="quadraticControlsgraphCalc" class="equationControls">
+                <div class="equationInputBox">
+                  <p>y = <input id="quadraticInputgraphCalc1" type="number" placeholder="a"> x<sup>2</sup> + <input
+                      id="quadraticInputgraphCalc2" type="number" placeholder="b"> x +
+                    <input id="quadraticInputgraphCalc3" type="number" placeholder="c">
+                  </p>
+                </div>
+                <div class="graphRenderButtonBox">
+                  <button id="quadraticBtngraphCalc" class="renderGraphBtn quadraticBtn"></button>
+                </div>
+              </article>
+              <div class="eqListUnderLine"></div>
+            </section>
+
+            <section class="cubicEquation equationForm">
+              <div id="cubicListgraphCalc" class="equationListBox">
+                <h2 class="equationTitle">Cubic Equation</h2><i id="cubicListIcongraphCalc"
+                  class="xi-angle-down listShowIcon"></i>
+              </div>
+              <article id="cubicControlsgraphCalc" class="equationControls">
+                <div class="equationInputBox">
+                  <p>y = <input id="cubicInputgraphCalc1" type="number" placeholder="a"> x<sup>3</sup> + <input
+                      id="cubicInputgraphCalc2" type="number" placeholder="b">
+                    x<sup>2</sup> + <input id="cubicInputgraphCalc3" type="number" placeholder="c"> x + <input
+                      id="cubicInputgraphCalc4" type="number" placeholder="d"></p>
+                </div>
+                <div class="graphRenderButtonBox">
+                  <button id="cubicBtngraphCalc" class="renderGraphBtn cubicBtn"></button>
+                </div>
+              </article>
+              <div class="eqListUnderLine"></div>
+            </section>
+
+            <section class="circleEquation equationForm">
+              <div id="circleListgraphCalc" class="equationListBox">
+                <h2 class="equationTitle">Circle Equation</h2><i id="circleListIcongraphCalc"
+                  class="xi-angle-down listShowIcon"></i>
+              </div>
+              <article id="circleControlsgraphCalc" class="equationControls">
+                <div class="equationInputBox circleEquationInputBox">
+                  <p>x = cos(θ&deg;) &times; <input id="circleInputgraphCalc1" type="number" placeholder="r"></p>
+                  <p class="circleSinMargin">y = <span class="spacingSin">si</span>n(θ&deg;) &times; <input
+                      id="circleInputgraphCalc2" type="number" placeholder="r"></p>
+                </div>
+                <div class="graphRenderButtonBox">
+                  <button id="circleBtngraphCalc" class="renderGraphBtn circleBtn"></button>
+                </div>
+              </article>
+              <div class="eqListUnderLine"></div>
+            </section>
+          </section>
+          <!-- canvas -->
+          <section id="canvasArea" class="canvasArea">
+            <article class="canvasTopIconBox">
+              <div class="firstIconBox">
+                <i class="xi-renew canvasIcon"></i>
+              </div>
+              <div class="secondIconBox">
+                <i class="xi-arrow-left canvasIcon"></i>
+                <i class="xi-arrow-up canvasIcon"></i>
+                <i class="xi-arrow-down canvasIcon"></i>
+                <i class="xi-arrow-right canvasIcon"></i>
+              </div>
+              <div class="thirdIconBox">
+                <i class="xi-zoom-in canvasIcon"></i>
+                <i class="xi-zoom-out canvasIcon"></i>
+              </div>
+            </article>
+            <canvas id="canvasgraphCalc" class="canvas" width="500" height="500"></canvas>
+            <article class="canvasBottomIconBox">
+              <span class="canvasClearBtn">Clear <i class="xi-refresh canvasClearIcon"></i></span>
+            </article>
+          </section>
+        </div>
+
+        <!-- ===============end================ -->
+      </div>
+    </div>
+  </div>
+
+  <!-- script -->
+  <script>
+    // BasicCal
+    class BasicCal {
+      constructor(id) {
+        this.id = id;
+      }
+      initCalc(targetDom) {
+        const HTMLcomponent = `
+          <div class="mainBox" id="mainBox${this.id}">
+          <div class="resultArea" id="result${this.id}">0</div>
+
+          <section class="floatRangeArea">
+            <input id="floatRange" class="floatRange" type="range" min="0" max="4" value="0">
+            <article class="floatTextArea">
+              <span>F</span><span>4</span><span>3</span><span>2</span><span>0</span>
+            </article>
+          </section>
+
+          <article class="btnArea">
+            <button class="bCGray" data-value="C">C</button>
+            <button class="bCGray" data-value="(">(</button>
+            <button class="bCGray" data-value=")">)</button> 
+            <button class="bCGray" data-value=">"><i class="fa-solid fa-play"></i></button>
+            <button data-value="7">7</button>
+            <button data-value="8">8</button>
+            <button data-value="9">9</button>
+            <button class="bCDark" data-value="/"><i class="fa-solid fa-divide"></i></button>
+            <button data-value="4">4</button>
+            <button data-value="5">5</button>
+            <button data-value="6">6</button>
+            <button class="bCDark" data-value="*"><i class="xi-close icon"></i></button>
+            <button data-value="1">1</button>
+            <button data-value="2">2</button>
+            <button data-value="3">3</button>
+            <button class="bCDark" data-value="-"><i class="xi-minus icon"></i></button>
+            <button data-value="0">0</button>
+            <button data-value=".">.</button>
+            <button class="bCRed" data-value="=">=</button>
+            <button class="bCDark" data-value="+"><i class="xi-plus icon"></i></button>
+          </article>
+          </div>`;
+        const CSScomponent = `
+          .mainBox {
+              width: 340px;
+              height: 565px;
+              padding: 20px;
+              box-shadow: rgba(39, 39, 39, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.1) 0px 15px 12px;
+              border-radius: 10px;
+              margin: 0 auto;
+              background-color: #E7E8EB;
+              display: none;
+              }
+
+            .resultArea {
+              width: 98%;
+              height: 20%;
+              background-color: #C8CBD3;
+              text-align: right;
+              margin: 0 auto;
+              margin-bottom: 10px;
+              border-radius: 10px;
+              padding: 10px 20px;
+              box-sizing: border-box;
+              line-height: 88px;
+              font-size: 40px;
+              overflow: hidden;
+            }
+
+            /* scrollBar */
+            .resultArea::-webkit-scrollbar {
+              width: 3px;
+              height: 8px;
+            }
+
+            .resultArea::-webkit-scrollbar-track {
+              background-color: gray;
+            }
+
+            .resultArea::-webkit-scrollbar-thumb {
+              background-color: #ffca1d;
+            }
+
+            .resultArea::-webkit-scrollbar-button {
+              display: none;
+            }
+
+            .btnArea {
+              width: 97%;
+              text-align: center;
+              padding-top: 8px;
+              margin: 0 auto;
+            }
+
+            button {
+              width: 61px;
+              height: 61px;
+              border-radius: 50%;
+              margin: 5px 2px;
+              border: 0;
+              box-shadow: rgba(99, 99, 99, 0.18) 0px 3px 2px 0px;
+              background-color: #fff;
+            }
+
+            button:hover {
+              background-color: #f4f4f4;
+            }
+
+            button:active {
+              box-shadow: inset rgba(99, 99, 99, 0.4) 0px 1px 3px 0px;
+            }
+
+            .bCGray {
+              background-color: #D7D8DD;
+            }
+
+            .bCGray:hover {
+              background-color: #C4C6CC;
+            }
+
+            .bCDark {
+              background-color: #A8A9B3;
+            }
+
+            .bCDark:hover {
+              background-color: #8E8F99;
+            }
+
+            .bCRed {
+              background-color: #F55062;
+              color: #fff;
+            }
+
+            .bCRed:hover {
+              background-color: #D43F53;
+            }
+
+            /* ==range== */
+            .floatRangeArea {
+              /* border: 1px solid red; */
+              width: 97%;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+
+            }
+
+            .floatTextArea {
+              width: 40%;
+              display: flex;
+              justify-content: space-between;
+              box-sizing: border-box;
+              padding: 5px 5px 0;
+            }
+
+            .floatTextArea>span {
+              font-size: 15px;
+            }
+
+            /* floatRange */
+            .floatRange {
+              width: 40%;
+              border-radius: 8px;
+              outline: none;
+              -webkit-appearance: none;
+              accent-color: #ffca1d;
+              margin-top: 6px;
+            }`;
+        targetDom.innerHTML += `
+        ${HTMLcomponent}
+        <style>${CSScomponent}</style>
+        `;
+      }//$initCalc
+      showData(outputDom, resultContext) {
+        // DOMUpdate
+        const DOMUpdate = () => {
+          let tempCalc = '';
+          resultContext.currentStorage.forEach((value) => {
+            tempCalc += value;
+          });
+          return tempCalc;
+        }
+
+        if (resultContext.isResultChecked) {
+          outputDom.innerHTML = '';
+          const tempCalc = DOMUpdate();
+          const resultCalc = tempCalc === '' ? 0 : tempCalc;
+          try {
+            const calculatedResult = Number(eval(resultCalc));
+            const decimalPlaces = resultContext.floatPrecision
+            let resultText = calculatedResult.toFixed(decimalPlaces);
+
+            // f로 설정되어있으면서 정수부분일때 소수점 출력 안되게
+            if (decimalPlaces == 9 && Number.isInteger(calculatedResult)) {
+              resultText = calculatedResult.toLocaleString();
+            } else if (decimalPlaces > 0) {
+              resultText = calculatedResult.toFixed(decimalPlaces);
+            }
+
+            // 결과값의 length가 11자리 초과일시 스크롤발생
+            if (resultText.length > 11) {
+              outputDom.style.overflowX = "scroll";
+            } else {
+              outputDom.style.overflow = "hidden";
+            }
+            outputDom.innerHTML = resultText;
+
+          } catch (err) {
+            outputDom.innerHTML = "Try Again";
+          }
+        } else {
+          outputDom.innerHTML = '';
+          outputDom.style.overflow = "hidden";
+          const resultText = DOMUpdate();
+          outputDom.innerHTML = resultText;
+        }
+      }//$showData
+      receiveData(outputDom) {
+        class Deck {
+          constructor(id) {
+            this.id = id;
+            this.storage = [];
+          }
+          pushItem(item) { this.storage.push(item); }
+          popItem() { return this.storage.pop(); }
+          unshiftItem(item) { this.storage.unshift(item); }
+          shiftItem() { return this.storage.shift(); }
+          countDeck() { return this.storage.length; }
+          refreshDeck() { this.storage = []; }
+        } //end_Deck
+
+        const calcDeck = new Deck('calcDeck'); // new Deck
+
+        const resultContext = {
+          currentStorage: [],
+          isResultChecked: false,
+          floatPrecision: 9
+        }
+
+        const valueUpdate = () => {
+          resultContext.currentStorage = [];
+          resultContext.isResultChecked = false;
+
+          const tempArr = [];
+          for (let i = calcDeck.countDeck() - 1; i >= 0; i--) {
+            tempArr.push(calcDeck.shiftItem());
+          }
+          tempArr.forEach((value) => {
+            calcDeck.pushItem(value);
+            resultContext.currentStorage.push(value);
+          })
+        }
+
+        // 소수점 변화
+        document.getElementById("floatRange").addEventListener("input", (event) => {
+          const floatValue = [9, 4, 3, 2, 0];
+          resultContext.floatPrecision = floatValue[event.target.value];
+        })
+
+        document.getElementById(`mainBox${this.id}`).addEventListener("click", (e) => {
+          // let e = e ? e : event;
+          if (e.target.dataset.value != null) {
+            switch (e.target.dataset.value) {
+              case ">":
+                calcDeck.popItem();
+                valueUpdate();
+                this.showData(outputDom, resultContext);
+                break;
+              case "=":
+                calcDeck.refreshDeck();
+                resultContext.isResultChecked = true;
+                this.showData(outputDom, resultContext);
+                break;
+              case "C":
+                calcDeck.refreshDeck();
+                valueUpdate();
+                this.showData(outputDom, resultContext);
+                break;
+              default:
+                calcDeck.pushItem(e.target.dataset.value);
+                valueUpdate();
+                this.showData(outputDom, resultContext);
+            }
+          }
+        }); //onclick_event
+      }//$receiveData
+      control(targetDom) {
+        this.initCalc(targetDom);
+        this.receiveData(document.getElementById(`result${this.id}`));
+      }//$control
+    }//$BasicCal
+
+    const basicCalc = new BasicCal('basicCalc');
+    basicCalc.control(document.getElementById('calcArea'));
+
+    // GraphCal
+    class GraphCal {
+      constructor(id) {
+        this.id = id;
+      }
+      initCalc(targetDom) {
+        const HTMLcomponent = `
+       `;
+        const CSScomponent = `
+          `;
+        targetDom.innerHTML += `
+          ${HTMLcomponent}
+          <style>${CSScomponent}</style>
+        `;
+      }//$initCalc
+
+      showData(eventDetails) {
+        // equationList _ clickEvent
+        const { shapeIds, listEventId, listEventIndex } = eventDetails;  // 디스트럭처링
+
+        const controlElement = document.getElementById(`${shapeIds[listEventIndex]}Controls${this.id}`);
+        const ListElement = document.getElementById(`${shapeIds[listEventIndex]}ListIcon${this.id}`);
+
+        const ListIconUpdate = (displayStatus) => {
+          if (displayStatus == "flex") {
+            ListElement.classList.remove('xi-angle-down');
+            ListElement.classList.add('xi-angle-up');
+          } else if (displayStatus == "none") {
+            ListElement.classList.add('xi-angle-down');
+            ListElement.classList.remove('xi-angle-up');
+          }
+        }
+        const displayStatus = controlElement.style.display === "flex" ? "none" : "flex";
+        controlElement.style.display = displayStatus;
+        ListIconUpdate(displayStatus);
+
+      }//$showData
+
+      listReceiveData(eventAreaDom) {
+        // eventDetailsObject
+        const eventDetails = {
+          shapeIds: ['linear', 'quadratic', 'cubic', 'circle'],
+          listIds: [],
+          listEventIndex: 0,
+        }
+        // list id 할당
+        for (let i = 0; i < eventDetails.shapeIds.length; i++) {
+          eventDetails.listIds.push(`${eventDetails.shapeIds[i]}List${this.id}`)
+        }
+
+        // equationList _ clickEvent
+        eventAreaDom.addEventListener("click", (event) => {
+          const targetId = event.target.id;
+          if (eventDetails.listIds.includes(targetId)) {
+            eventDetails.listEventIndex = eventDetails.listIds.indexOf(targetId);//for문 -> indexOf update
+            this.showData(eventDetails);
+          }
+        });
+      }//$listReceiveData
+
+      drawOnCanvas() {
+        class Canvas {
+          constructor(id) {
+            this.id = id;
+            this.canvas = null;
+            this.pen = null;
+            this.cWidth = null;
+            this.cHeight = null;
+            this.scaleFactor = 10;
+          }//
+
+          initCanvas() {
+            this.canvas = document.getElementById(`canvas${this.id}`);
+            this.pen = this.canvas.getContext('2d');
+            this.cWidth = this.canvas.getAttribute('width');
+            this.cHeight = this.canvas.getAttribute('height');
+            this.crossConfig();
+            this.scaleConfig();
+          }//
+
+          printDot(x, y) {
+            this.pen.fillRect(x, y, 1, 1)
+          }//
+
+          modiDot(x, y) {
+            this.pen.fillRect(x * this.scaleFactor + this.cWidth / 2, -y * this.scaleFactor + this.cHeight / 2, 1, 1);
+          }//
+
+          crossConfig() {
+            for (let i = 0; i <= this.cWidth; i++) {
+              this.printDot(i, this.cHeight / 2);
+            }
+
+            for (let i = 0; i <= this.cHeight; i++) {
+              this.printDot(this.cWidth / 2, i);
+            }
+          }//
+
+          scaleConfig() {
+            for (let x = 0; x <= (this.cWidth / this.scaleFactor); x++) {
+              for (let y = -5; y <= 5; y++) {
+                this.printDot(x * this.scaleFactor, y + this.cHeight / 2);
+              }
+            }
+
+            for (let y = 0; y <= (this.cHeight / this.scaleFactor); y++) {
+              for (let x = -5; x <= 5; x++) {
+                this.printDot(x + this.cWidth / 2, y * this.scaleFactor);
+              }
+            }
+
+          }//
+
+          renderGraph(eventMode, eventValue) {
+            switch (eventMode) {
+              case 'linear':
+                const [liA, liB] = eventValue;
+                for (let x = -(this.cWidth / 2); x <= +this.cWidth / 2; x += 0.01) {
+                  const y = (liA * x) + liB;
+                  this.modiDot(x, y);
+                  this.pen.fillStyle = "#C74540";
+                }
+                break;
+              case 'quadratic':
+                const [qdA, qdB, qdC] = eventValue;
+                for (let x = -(this.cWidth / 2); x <= +this.cWidth / 2; x += 0.01) {
+                  const y = (qdA * x ** 2) + (qdB * x) + qdC;
+                  this.modiDot(x, y);
+                  this.pen.fillStyle = "#2071B4";
+                }
+                break;
+              case 'cubic':
+                const [cbA, cbB, cbC, cbD] = eventValue;
+                for (let x = -this.cWidth / 2; x <= +this.cWidth / 2; x += 0.01) {
+                  const y = (cbA * x ** 3) + (cbB * x ** 2) + (cbC * x) + cbD;
+                  this.modiDot(x, y);
+                  this.pen.fillStyle = "#348D46";
+                }
+                break;
+              case 'circle':
+                const [ccA, ccB, ccC] = eventValue;
+
+                for (let i = 0; i <= 360; i += 0.01) {
+
+                  const cos = Math.cos((i * Math.PI) / 180) * ccC + ccA;
+                  const sin = Math.sin((i * Math.PI) / 180) * ccC + ccB;
+
+                  this.modiDot(cos, sin)
+                  this.pen.fillStyle = "#755FA6";
+
+                }
+                break;
+
+            }
+
+          }//
+
+          inputReceiveData(eventAreaDom) {
+            const inputEventDetails = {
+              shapeIds: ['linear', 'quadratic', 'cubic', 'circle'],
+              controlsIds: [],
+              graphRenderIds: [],
+              value: [
+                [0, 0],
+                [0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0],
+              ]
+            }
+
+            // controlsIds , graphRenderIds 할당
+            for (let i = 0; i < inputEventDetails.shapeIds.length; i++) {
+              inputEventDetails.controlsIds.push(`${inputEventDetails.shapeIds[i]}Controls${this.id}`); // controlsIds
+              inputEventDetails.graphRenderIds.push(`${inputEventDetails.shapeIds[i]}Btn${this.id}`); // graphRenderIds
+            }
+
+            // [Event::input] controlsIds 
+            for (let i = 0; i < inputEventDetails.controlsIds.length; i++) {
+              const eventId = document.getElementById(inputEventDetails.controlsIds[i]);
+
+              eventId.addEventListener("input", (event) => {
+                const eventInputIndex = event.target.id.slice(-1);
+                inputEventDetails.value[i][eventInputIndex - 1] = event.target.value;
+              })
+            }
+
+            // [Event::click] graphRenderIds 
+            for (let i = 0; i < inputEventDetails.graphRenderIds.length; i++) {
+              const eventId = document.getElementById(inputEventDetails.graphRenderIds[i]);
+              eventId.addEventListener("click", (event) => {
+                const eventMode = inputEventDetails.shapeIds[i]
+                const eventValue = inputEventDetails.value[i]
+                this.renderGraph(eventMode, eventValue);
+              })
+            }
+
+          }//$inputReceiveData
+
+          controlCanvas() {
+            this.initCanvas();
+            this.inputReceiveData(document.getElementById(`${this.id}Area`))
+          }//
+
+        }//$canvas
+
+        const canvas = new Canvas(`${this.id}`);
+        canvas.controlCanvas();
+
+      }//$drawOnCanvas
+
+
+      control(targetDom) {
+        this.initCalc(targetDom);
+        this.listReceiveData(document.getElementById(`${this.id}Area`));
+        this.drawOnCanvas();
+      }//$control
+    }//$GraphCal
+
+    const graphCalc = new GraphCal('graphCalc');
+    graphCalc.control(document.getElementById('coordinateArea'));
+
+
+
+
+  </script>
+</body>
+
+</html>

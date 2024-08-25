@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- icon : xeicon -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+  <!-- icon : font-awesome -->
+  <script src="https://kit.fontawesome.com/5f8658d4f2.js" crossorigin="anonymous"></script>
+  <!-- font : NotoSans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <!-- favicon -->
+  <link rel="icon" href="images/calcFavicon_1.png" type="image/x-icon">
+  <title>Calculator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-size: 23px;
+      color: #222;
+      font-family: "Noto Sans", sans-serif;
+      font-weight: 600;
+      box-sizing: border-box;
+    }
+
+    .Container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .pageTitle {
+      padding: 30px 0;
+      font-size: 50px;
+      text-align: center;
+      margin-bottom: 50px;
+      background-color: #ced3d69d;
+      width: 99%;
+      margin: 0 auto;
+      margin-bottom: 70px;
+      font-weight: 600;
+      border-radius: 0 0 80px 80px;
+    }
+
+    .calcWrapper {
+      padding-top: 20px;
+      width: 100%;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .icon,
+    i {
+      font-size: 17px;
+      cursor: pointer;
+      font-weight: 500;
+      pointer-events: none;
+      /*구글링 : i tag 영역누를시 버튼이 클릭안되는걸 막기위해*/
+    }
+
+    /* === calculatorType === */
+    .calculatorType {
+      display: flex;
+      width: 350px;
+      height: 60px;
+      background: #E7E8EB;
+      border-radius: 35px;
+      padding: 10px;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+
+    .CalcTypeBtn {
+      width: 47%;
+      border-radius: 20px;
+      text-align: center;
+      line-height: 37px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .CalcTypeBtn.active {
+      background-color: #7F7F86;
+      color: #fff;
+      font-weight: 530;
+    }
+
+    /* == input == */
+    input[type="number"] {
+      width: 40px;
+      height: 30px;
+      text-align: right;
+    }
+
+    /* inputBox 화살표 제거 */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="Container">
+    <!-- calculatorType -->
+    <h1 class="pageTitle">Calculator</h1>
+    <div id="calculatorType" class="calculatorType">
+      <p id="BasicCalcBtn" class="BasicCalcBtn CalcTypeBtn active">Basic</p>
+      <p id="GraphCalcBtn" class="GraphCalcBtn CalcTypeBtn">Graph</p>
+    </div>
+    <!-- calcWrapper -->
+    <div class="calcWrapper">
+      <div id="calcArea"></div>
+      <div id="coordinateArea"></div>
+    </div>
+  </div>
+
+  <!-- script -->
+  <script>
+    // BasicCal
+    class BasicCal {
+      constructor(id) {
+        this.id = id;
+      }
+      initCalc(targetDom) {
+        const HTMLcomponent = `
+          <div class="mainBox" id="mainBox${this.id}">
+          <div class="resultArea" id="result${this.id}">0</div>
+
+          <section class="floatRangeArea">
+            <input id="floatRange" class="floatRange" type="range" min="0" max="4" value="0">
+            <article class="floatTextArea">
+              <span>F</span><span>4</span><span>3</span><span>2</span><span>0</span>
+            </article>
+          </section>
+
+          <article class="btnArea">
+            <button class="bCGray" data-value="C">C</button>
+            <button class="bCGray" data-value="(">(</button>
+            <button class="bCGray" data-value=")">)</button> 
+            <button class="bCGray" data-value=">"><i class="fa-solid fa-play"></i></button>
+            <button data-value="7">7</button>
+            <button data-value="8">8</button>
+            <button data-value="9">9</button>
+            <button class="bCDark" data-value="/"><i class="fa-solid fa-divide"></i></button>
+            <button data-value="4">4</button>
+            <button data-value="5">5</button>
+            <button data-value="6">6</button>
+            <button class="bCDark" data-value="*"><i class="xi-close icon"></i></button>
+            <button data-value="1">1</button>
+            <button data-value="2">2</button>
+            <button data-value="3">3</button>
+            <button class="bCDark" data-value="-"><i class="xi-minus icon"></i></button>
+            <button data-value="0">0</button>
+            <button data-value=".">.</button>
+            <button class="bCRed" data-value="=">=</button>
+            <button class="bCDark" data-value="+"><i class="xi-plus icon"></i></button>
+          </article>
+          </div>`;
+        const CSScomponent = `
+          .mainBox {
+              width: 340px;
+              height: 565px;
+              padding: 20px;
+              box-shadow: rgba(39, 39, 39, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.1) 0px 15px 12px;
+              border-radius: 10px;
+              margin: 0 auto;
+              background-color: #E7E8EB;
+              display: none;
+              }
+
+            .resultArea {
+              width: 98%;
+              height: 20%;
+              background-color: #C8CBD3;
+              text-align: right;
+              margin: 0 auto;
+              margin-bottom: 10px;
+              border-radius: 10px;
+              padding: 10px 20px;
+              box-sizing: border-box;
+              line-height: 88px;
+              font-size: 40px;
+              overflow: hidden;
+            }
+
+            /* scrollBar */
+            .resultArea::-webkit-scrollbar {
+              width: 3px;
+              height: 8px;
+            }
+
+            .resultArea::-webkit-scrollbar-track {
+              background-color: gray;
+            }
+
+            .resultArea::-webkit-scrollbar-thumb {
+              background-color: #ffca1d;
+            }
+
+            .resultArea::-webkit-scrollbar-button {
+              display: none;
+            }
+
+            .btnArea {
+              width: 97%;
+              text-align: center;
+              padding-top: 8px;
+              margin: 0 auto;
+            }
+
+            button {
+              width: 61px;
+              height: 61px;
+              border-radius: 50%;
+              margin: 5px 2px;
+              border: 0;
+              box-shadow: rgba(99, 99, 99, 0.18) 0px 3px 2px 0px;
+              background-color: #fff;
+            }
+
+            button:hover {
+              background-color: #f4f4f4;
+            }
+
+            button:active {
+              box-shadow: inset rgba(99, 99, 99, 0.4) 0px 1px 3px 0px;
+            }
+
+            .bCGray {
+              background-color: #D7D8DD;
+            }
+
+            .bCGray:hover {
+              background-color: #C4C6CC;
+            }
+
+            .bCDark {
+              background-color: #A8A9B3;
+            }
+
+            .bCDark:hover {
+              background-color: #8E8F99;
+            }
+
+            .bCRed {
+              background-color: #F55062;
+              color: #fff;
+            }
+
+            .bCRed:hover {
+              background-color: #D43F53;
+            }
+
+            /* ==range== */
+            .floatRangeArea {
+              /* border: 1px solid red; */
+              width: 97%;
+              margin: 0 auto;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+
+            }
+
+            .floatTextArea {
+              width: 40%;
+              display: flex;
+              justify-content: space-between;
+              box-sizing: border-box;
+              padding: 5px 5px 0;
+            }
+
+            .floatTextArea>span {
+              font-size: 15px;
+            }
+
+            /* floatRange */
+            .floatRange {
+              width: 40%;
+              border-radius: 8px;
+              outline: none;
+              -webkit-appearance: none;
+              accent-color: #ffca1d;
+              margin-top: 6px;
+            }`;
+        targetDom.innerHTML += `
+        ${HTMLcomponent}
+        <style>${CSScomponent}</style>
+        `;
+      }//
+      showData(outputDom, resultContext) {
+        // DOMUpdate
+        const DOMUpdate = () => {
+          let tempCalc = '';
+          resultContext.currentStorage.forEach((value) => {
+            tempCalc += value;
+          });
+          return tempCalc;
+        }
+
+        if (resultContext.isResultChecked) {
+          outputDom.innerHTML = '';
+          const tempCalc = DOMUpdate();
+          const resultCalc = tempCalc === '' ? 0 : tempCalc;
+          try {
+            const calculatedResult = Number(eval(resultCalc));
+            const decimalPlaces = resultContext.floatPrecision
+            let resultText = calculatedResult.toFixed(decimalPlaces);
+
+            // f로 설정되어있으면서 정수부분일때 소수점 출력 안되게
+            if (decimalPlaces == 9 && Number.isInteger(calculatedResult)) {
+              resultText = calculatedResult.toLocaleString();
+            } else if (decimalPlaces > 0) {
+              resultText = calculatedResult.toFixed(decimalPlaces);
+            }
+
+            // 결과값의 length가 11자리 초과일시 스크롤발생
+            if (resultText.length > 11) {
+              outputDom.style.overflowX = "scroll";
+            } else {
+              outputDom.style.overflow = "hidden";
+            }
+            outputDom.innerHTML = resultText;
+
+          } catch (err) {
+            outputDom.innerHTML = "Try Again";
+          }
+        } else {
+          outputDom.innerHTML = '';
+          outputDom.style.overflow = "hidden";
+          const resultText = DOMUpdate();
+          outputDom.innerHTML = resultText;
+        }
+      }//
+      receiveData(outputDom) {
+        class Deck {
+          constructor(id) {
+            this.id = id;
+            this.storage = [];
+          }
+          pushItem(item) { this.storage.push(item); }
+          popItem() { return this.storage.pop(); }
+          unshiftItem(item) { this.storage.unshift(item); }
+          shiftItem() { return this.storage.shift(); }
+          countDeck() { return this.storage.length; }
+          refreshDeck() { this.storage = []; }
+        } //end_Deck
+
+        const calcDeck = new Deck('calcDeck'); // new Deck
+
+        const resultContext = {
+          currentStorage: [],
+          isResultChecked: false,
+          floatPrecision: 9
+        }
+
+        const valueUpdate = () => {
+          resultContext.currentStorage = [];
+          resultContext.isResultChecked = false;
+
+          const tempArr = [];
+          for (let i = calcDeck.countDeck() - 1; i >= 0; i--) {
+            tempArr.push(calcDeck.shiftItem());
+          }
+          tempArr.forEach((value) => {
+            calcDeck.pushItem(value);
+            resultContext.currentStorage.push(value);
+          })
+        }
+
+        // 소수점 변화
+        document.getElementById("floatRange").addEventListener("input", (event) => {
+          const floatValue = [9, 4, 3, 2, 0];
+          resultContext.floatPrecision = floatValue[event.target.value];
+        })
+
+        document.getElementById(`mainBox${this.id}`).addEventListener("click", (e) => {
+          // let e = e ? e : event;
+          if (e.target.dataset.value != null) {
+            switch (e.target.dataset.value) {
+              case ">":
+                calcDeck.popItem();
+                valueUpdate();
+                this.showData(outputDom, resultContext);
+                break;
+              case "=":
+                calcDeck.refreshDeck();
+                resultContext.isResultChecked = true;
+                this.showData(outputDom, resultContext);
+                break;
+              case "C":
+                calcDeck.refreshDeck();
+                valueUpdate();
+                this.showData(outputDom, resultContext);
+                break;
+              default:
+                calcDeck.pushItem(e.target.dataset.value);
+                valueUpdate();
+                this.showData(outputDom, resultContext);
+            }
+          }
+        }); //onclick_event
+      }//
+      control(targetDom) {
+        this.initCalc(targetDom);
+        this.receiveData(document.getElementById(`result${this.id}`));
+      }//
+    }
+
+    const basicCalc = new BasicCal('basicCalc');
+    basicCalc.control(document.getElementById('calcArea'));
+
+    // GraphCal
+    class GraphCal {
+      constructor(id) {
+        this.id = id;
+      }
+      initCalc(targetDom) {
+        const HTMLcomponent = `
+        <div class="equationWrap">
+          <section class="equationArea">
+          <section class="linearEquation equationForm removeMargin">
+            <div class="equationListBox">
+              <h2 class="equationTitle">Linear Equation</h2><i class="xi-angle-down listShowIcon"></i>
+            </div>
+            <article class="equationControls">
+              <div class="equationInputBox">
+                <p>y = <input type="number" placeholder="a"> x<sup></sup> + <input type="number" placeholder="b"></p>
+              </div>
+              <div class="graphRenderButtonBox">
+                <button class="renderGraphBtn linearBtn"></button>
+              </div>
+            </article>
+            <div class="eqListUnderLine"></div>
+          </section>
+
+          <section class="quadraticEquation equationForm">
+            <div class="equationListBox">
+              <h2 class="equationTitle">Quadratic Equation</h2><i class="xi-angle-down listShowIcon"></i>
+            </div>
+            <article class="equationControls">
+              <div class="equationInputBox">
+                <p>y = <input type="number" placeholder="a"> x<sup>2</sup> + <input type="number" placeholder="b"> x +
+                  <input type="number" placeholder="c">
+                </p>
+              </div>
+              <div class="graphRenderButtonBox">
+                <button class="renderGraphBtn quadraticBtn"></button>
+              </div>
+            </article>
+            <div class="eqListUnderLine"></div>
+          </section>
+
+          <section class="cubicEquation equationForm">
+            <div class="equationListBox">
+              <h2 class="equationTitle">Cubic Equation</h2><i class="xi-angle-down listShowIcon"></i>
+            </div>
+            <article class="equationControls">
+              <div class="equationInputBox">
+                <p>y = <input type="number" placeholder="a"> x<sup>3</sup> + <input type="number" placeholder="b">
+                  x<sup>2</sup> + <input type="number" placeholder="c"> x + <input type="number" placeholder="d"></p>
+              </div>
+              <div class="graphRenderButtonBox">
+                <button class="renderGraphBtn cubicBtn"></button>
+              </div>
+            </article>
+            <div class="eqListUnderLine"></div>
+          </section>
+
+          <section class="circleEquation equationForm">
+            <div class="equationListBox">
+              <h2 class="equationTitle">Circle Equation</h2><i class="xi-angle-down listShowIcon"></i>
+            </div>
+            <article class="equationControls">
+              <div class="equationInputBox circleEquationInputBox">
+                <p>x = cos(θ&deg;) &times; <input type="number" placeholder="r"></p>
+                <p class="circleSinMargin">y = <span class="spacingSin">si</span>n(θ&deg;) &times; <input type="number" placeholder="r"></p>
+              </div>
+              <div class="graphRenderButtonBox">
+                <button class="renderGraphBtn circleBtn"></button>
+              </div>
+            </article>
+            <div class="eqListUnderLine"></div>
+          </section>
+        </section>
+        <!-- canvas -->
+        <section id="canvasArea" class="canvasArea">
+          <article class="canvasTopIconBox">
+            <div class="firstIconBox">
+              <i class="xi-renew canvasIcon"></i>
+            </div>
+            <div class="secondIconBox">
+              <i class="xi-arrow-left canvasIcon"></i>
+              <i class="xi-arrow-up canvasIcon"></i>
+              <i class="xi-arrow-down canvasIcon"></i>
+              <i class="xi-arrow-right canvasIcon"></i>
+            </div>
+            <div class="thirdIconBox">
+              <i class="xi-zoom-in canvasIcon"></i>
+              <i class="xi-zoom-out canvasIcon"></i>
+            </div>
+          </article>
+          <canvas id="canvas" class="canvas"></canvas>
+          <article class="canvasBottomIconBox">
+            <span class="canvasClearBtn">Clear <i class="xi-refresh canvasClearIcon"></i></span>
+          </article>
+        </section>
+        </div>`;
+        const CSScomponent = `
+          .equationWrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: rgba(39, 39, 39, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.1) 0px 15px 12px;
+            height: 700px;
+            border-radius: 10px;
+            width: 1220px;
+            background-color: #aab4b894;
+            //display: none; 
+          }
+          .equationArea {
+            width: 540px;
+            height: 655px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+          }
+
+          .equationForm {
+            /* border: 1px solid red; */
+            margin: 5px 0;
+          }
+
+          .removeMargin {
+            margin: 0;
+          }
+
+          .equationListBox {
+            cursor: pointer;
+            /* background: rgb(223, 219, 215); */
+          }
+
+          .equationTitle {
+            margin: 12px 0 12px 7px;
+            /* border:  1px solid red; */
+            display: inline-block;
+            width: 93%;
+            font-size: 22.8px;
+          }
+
+          .listShowIcon {
+            font-size: 22px;
+            font-weight: 580;
+          }
+
+          .equationControls {
+            display: flex;
+            width: 500px;
+            height: 20%;
+            background-color: #E7E8EB;
+            border-radius: 10px;
+            padding-left: 20px;
+            //display: none;
+          }
+
+          .equationInputBox {
+            width: 83%;
+            margin-top: 15px;
+          }
+
+          .circleEquationInputBox {
+            margin-top: 8px;
+          }
+
+          .circleSinMargin {
+            margin-top: 4px;
+          }
+
+          .graphRenderButtonBox {
+            width: 17%;
+            height: 80px;
+            background-color: #E7E8EB;
+            text-align: center;
+            border-radius: 0 10px 10px 0;
+          }
+
+          .renderGraphBtn {
+            margin-top: 14px;
+            width: 50px;
+            height: 50px;
+          }
+
+          /* == renderGraphBtn img == */
+          .linearBtn {
+            background-image: url("images/graphLineR.png");
+            background-size: contain;
+          }
+
+          .quadraticBtn {
+            background-image: url("images/graphLineB.png");
+            background-size: contain;
+          }
+
+          .cubicBtn {
+            background-image: url("images/graphLineG.png");
+            background-size: contain;
+          }
+
+          .circleBtn {
+            background-image: url("images/graphLineP.png");
+            background-size: contain;
+          }
+
+          .eqListUnderLine {
+            margin: 14px 0 0px;
+            width: 500px;
+            height: 2px;
+            background-color: #A8A9B3;
+            border-radius: 10px;
+          }
+
+          /* sin letterSpacing */
+          .spacingSin {
+            letter-spacing: 2.3px;
+          }
+
+          input::placeholder {
+            text-align: center;
+          }
+
+          /* === canvas area === */
+          .canvasArea {
+            background-color: #fff;
+            width: 600px;
+            height: 655px;
+            border-radius: 10px;
+            margin-left: 30px;
+          }
+
+          .canvasTopIconBox {
+            width: 100%;
+            height: 50px;
+            background: #7F7F86;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+          }
+
+          .canvas {
+            width: 100%;
+            height: 550px;
+          }
+
+          .firstIconBox {
+            width: 13%;
+            margin-left: 10px;
+          }
+
+          .secondIconBox {
+            width: 67%;
+          }
+
+          .thirdIconBox {
+            width: 20%;
+          }
+
+          .canvasIcon {
+            font-size: 26px;
+            margin: 7px 8px 0;
+            cursor: pointer;
+            pointer-events: fill;
+            transition: 0.2s;
+            border-radius: 50%;
+            padding: 4px;
+            color: #fff;
+          }
+
+          .canvasIcon:hover {
+            background: #fff;
+            color: #717177;
+          }
+
+          .canvasBottomIconBox {
+            width: 100%;
+            height: 50px;
+            background: #7F7F86;
+            border-radius: 0 0 10px 10px;
+          }
+
+          .canvasClearBtn {
+            display: inline-block;
+            width: 110px;
+            height: 35px;
+            text-align: center;
+            margin: 7px 0 0 480px;
+            border-radius: 5px;
+            cursor: pointer;
+            line-height: 35px;
+            color: #fff;
+            transition: 0.2s;
+          }
+
+          .canvasClearIcon {
+            font-size: 20px;
+            color: #fff;
+          }
+
+          .canvasClearBtn:hover {
+            background: #fff;
+            color: #7F7F86;
+            font-weight: 500;
+          }
+
+          .canvasClearBtn:hover .canvasClearIcon {
+            color: #7F7F86;
+            font-weight: 600;
+          }`;
+        targetDom.innerHTML += `
+          ${HTMLcomponent}
+          <style>${CSScomponent}</style>
+        `;
+      }
+      showData() {
+
+      }
+      receiveData() { }
+      control(targetDom) {
+        this.initCalc(targetDom);
+      }
+    }//
+
+    const graphCalc = new GraphCal('graphCalc');
+    graphCalc.control(document.getElementById('coordinateArea'));
+
+    ///////////////////
+/*     document.getElementById('calculatorType').addEventListener("click", (event) => {
+      const activeBtn = event.target.id;
+      console.log(event)
+      document.getElementById(activeBtn).classList.add('active');
+    }) */
+
+  </script>
+</body>
+
+</html>
